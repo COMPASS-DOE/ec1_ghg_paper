@@ -105,4 +105,3 @@ master <- left_join(gases, water_datasets, by = "kit_id") %>%
 # 4. Write merged uploaded data to file ----------------------------------------
 write_csv(master, "data/master_data.csv")
 
-
