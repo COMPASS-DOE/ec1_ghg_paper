@@ -1,7 +1,7 @@
 ## This script creates the second round of figures showing how gases (GHGs and O2)
 ## relate to soil physics, soil chemistry, water quality, and site characteristics
 ## 
-## 2022-04-27
+## 2022-04-27 (updated 6/3/22)
 ## Peter Regier
 # ############ #
 # ############ #
@@ -37,8 +37,7 @@ common_cols <- c("kit_id", "transect_location")
 # 2. Import data ---------------------------------------------------------------
 
 df_raw <- read_csv("data/master_data.csv") %>% 
-  filter(region != "Great Lakes") %>% 
-  dplyr::rename("soil_cond" = specific_conductance_us_cm)
+  filter(region != "Great Lakes") 
 
 ## Prep GHG data
 d_ghg <- df_raw %>% 
@@ -73,7 +72,7 @@ df_numerics <- left_join(d_ghg, df_raw %>% filter(type == "dry"), by = common_co
   mutate(pco2_sink = ifelse(d_pco2 > 0, "source", "sink"), 
          pch4_sink = ifelse(d_pch4 > 0, "source", "sink"), 
          pn2o_sink = ifelse(d_pn2o > 0, "source", "sink")) %>% 
-  ungroup()
+  ungroup() # important so common_cols are dropped prior to cor()
   
 
 df_numerics %>% 
@@ -81,6 +80,29 @@ df_numerics %>%
   drop_na() %>% 
   cor() %>% 
   corrplot()
+
+df_numerics %>% 
+  filter(transect_location == "Sediment") %>% 
+  select(gas_cols, sal_psu, ph, nitrate_ppm) %>% 
+  drop_na() %>% 
+  cor() %>% 
+  corrplot()
+
+df_numerics %>% 
+  #filter(transect_location == "Sediment") %>% 
+  ggplot(aes(ph, d_pn2o, color = transect_location)) + 
+  geom_point() + 
+  geom_smooth(method = "lm", se = F) + 
+  facet_wrap(~transect_location) + 
+  #scale_color_manual(values = color_theme) + 
+  labs(title = "Water pH vs change in N2O", 
+       x = "Water pH", y = " N2O (Wet - dry, ppm)")
+
+summary(lm(d_pn2o ~ ph, data = df_numerics %>% 
+             filter(transect_location == "Sediment")))
+
+summary(lm(d_pn2o ~ ph, data = df_numerics %>% 
+             filter(transect_location == "Upland")))
 
 prep_data <- function(vars){
   df_numerics %>%

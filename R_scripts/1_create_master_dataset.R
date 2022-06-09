@@ -51,7 +51,8 @@ loi <- read_csv(data_filenames[grepl("LOI", data_filenames)])
 npoc_tdn <- read_csv(data_filenames[grepl("NPOC_TDN", data_filenames)])
 o2_drawdown <- read_csv(data_filenames[grepl("OxygenDrawdown", data_filenames)])
 soil_ph <- read_csv(data_filenames[grepl("Soil_pH", data_filenames)]) %>% 
-  mutate(transect_location = str_to_title(transect_location))
+  mutate(transect_location = str_to_title(transect_location)) %>% 
+  dplyr::rename("soil_ph" = ph, "soil_cond" = specific_conductance_us_cm)
 tctn <- read_csv(data_filenames[grepl("TCTN", data_filenames)])
 tss <- read_csv(data_filenames[grepl("TSS", data_filenames)]) %>% 
   group_by(kit_id) %>% 
@@ -91,7 +92,7 @@ water_datasets <- full_join(ions %>% select(kit_id, contains("ppm")),
 soil_datasets <- full_join(bd %>% select(common_cols, bulk_density_g_cm3), 
                          gwc %>% select(common_cols, gwc_perc), by = common_cols) %>% 
   full_join(loi %>% select(common_cols, loi_perc), by = common_cols)  %>% 
-  full_join(soil_ph %>% select(common_cols, ph, specific_conductance_us_cm), by = common_cols) %>% 
+  full_join(soil_ph %>% select(common_cols, soil_ph, soil_cond), by = common_cols) %>% 
   full_join(tctn %>% select(common_cols, tn_perc, tc_perc), by = common_cols) %>% 
   full_join(metadata, by = "kit_id")
 
@@ -99,7 +100,7 @@ master <- left_join(gases, water_datasets, by = "kit_id") %>%
   left_join(soil_datasets, by = common_cols)
 
 ## If you want to delete the downloaded files from your local, run lines below:
-#file.remove(c(data_filenames, metadata_filenames))
+file.remove(c(data_filenames, metadata_filenames))
 
 
 # 4. Write merged uploaded data to file ----------------------------------------
