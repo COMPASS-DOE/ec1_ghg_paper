@@ -84,7 +84,7 @@ plot_wet_dry <- function(var, y_lab){
     geom_boxplot_pattern() + 
     scale_fill_manual(guide = "none", values = color_theme) + 
     scale_pattern_manual(values = c("dry" = "none", "wet" = "stripe")) +
-    labs(x = "", y = y_lab, pattern = "Treatment") + 
+    labs(x = "", y = paste0(y_lab, " (ppm)"), pattern = "Treatment") + 
     theme(legend.position = c(0.2, 0.8), 
           legend.background = element_blank())
 }
@@ -116,7 +116,7 @@ plot_delta <- function(var, y_lab){
     geom_boxplot() + 
     scale_fill_manual(guide = "none", values = color_theme) + 
     stat_compare_means(aes(label = ..p.signif..), comparisons = compare_transect) + 
-    labs(x = "", y = y_lab)
+    labs(x = "", y = paste0(y_lab), " (ppm)")
 }
 
 plot_grid(plot_delta(d_pco2, "CO2"), 

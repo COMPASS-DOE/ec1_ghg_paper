@@ -74,6 +74,8 @@ env_vars = c("latitude", "longitude", "macrophytes", "system", "rotten_eggs")
   
 ## Throw everything in 
 df <- masterdata_all %>% select(common_cols, gas_vars, water_vars, soil_vars, env_vars)
+write_csv(df, "220609_masterdata_for_jmp.csv", na = "")
+
 
 ## Make specific datasets
 df_water <- df %>% select(common_cols, gas_vars, water_vars)
@@ -95,6 +97,6 @@ df_env %>%
   cor() %>% 
   corrplot()
 
-ggplot(df_env, aes(as.factor(system), delta_do_hr)) + geom_boxplot()
+
 
 
