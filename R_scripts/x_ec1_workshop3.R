@@ -13,10 +13,17 @@
 require(pacman)
 p_load(tidyverse, # keep it tidy
        cowplot, 
-       corrplot) #corr
+       corrplot, 
+       PNWColors) #corr
+
+## Set theme
+theme_set(theme_bw())
 
 ## cheatcode to quick-reference 
-common_cols = c(kit_id, transect_location)
+common_cols = c("kit_id", "transect_location")
+
+## Set a color theme
+color_theme <- c("#1B264F", "#CE8147", "#FAF33E", "#3BB273")
 
 # 2. Import and assemble dataset -----------------------------------------------
 
@@ -74,7 +81,7 @@ env_vars = c("latitude", "longitude", "macrophytes", "system", "rotten_eggs")
   
 ## Throw everything in 
 df <- masterdata_all %>% select(common_cols, gas_vars, water_vars, soil_vars, env_vars)
-write_csv(df, "220609_masterdata_for_jmp.csv", na = "")
+#write_csv(df, "220609_masterdata_for_jmp.csv", na = "")
 
 
 ## Make specific datasets
@@ -91,11 +98,26 @@ ggplot(count_what_we_have, aes(par, perc)) +
   theme(axis.text.x = element_text(angle = 90))
 
 ## What do correlation plots look like for each subset? 
-df_env %>% 
+df_water %>% 
   select(-common_cols) %>% 
   drop_na() %>% 
   cor() %>% 
   corrplot()
+
+## Correlation colored by site
+ggplot(df, aes(sal_psu, delta_do_hr)) + 
+  geom_point(aes(color = transect_location)) + 
+  geom_smooth(method = "lm", se = F) + 
+  scale_color_manual(values = color_theme)
+  
+## Correlations faceted by site
+ggplot(df, aes(sal_psu, delta_do_hr, color = transect_location)) + 
+  geom_point() + 
+  geom_smooth(method = "lm", se = F) + 
+  facet_wrap(~transect_location) + 
+  scale_color_manual(values = color_theme)
+
+
 
 
 
