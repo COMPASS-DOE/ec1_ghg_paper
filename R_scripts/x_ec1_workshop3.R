@@ -105,20 +105,30 @@ df_water %>%
   corrplot()
 
 ## Correlation colored by site
-ggplot(df, aes(sal_psu, delta_do_hr)) + 
+ggplot(df, aes(npoc_mgl, d_pco2)) + 
   geom_point(aes(color = transect_location)) + 
   geom_smooth(method = "lm", se = F) + 
   scale_color_manual(values = color_theme)
   
 ## Correlations faceted by site
-ggplot(df, aes(sal_psu, delta_do_hr, color = transect_location)) + 
+ggplot(df, aes(delta_do_hr, d_pco2, color = transect_location)) + 
   geom_point() + 
   geom_smooth(method = "lm", se = F) + 
   facet_wrap(~transect_location) + 
   scale_color_manual(values = color_theme)
 
 
+## Correlation colored by site
+df %>% mutate(cn = tc_perc / tn_perc) %>% 
+  ggplot(aes(npoc_mgl, d_pco2, color = transect_location)) + 
+  geom_point() + 
+  geom_smooth(method = "lm", se = F) + 
+  facet_wrap(~transect_location, scales = "free") + 
+  scale_color_manual(values = color_theme)
 
 
-
+plot_grid(masterdata_raw %>% filter(transect_location != "Sediment" & region == "Chesapeake Bay") %>% 
+  ggplot(aes(kit_id, transect_location, fill = soil_cond)) + geom_tile(), 
+masterdata_raw %>% filter(transect_location != "Sediment" & region == "Chesapeake Bay") %>% 
+  ggplot(aes(kit_id, transect_location, fill = soil_ph)) + geom_tile(), ncol = 1)
 

@@ -1,8 +1,8 @@
 ## This script brings in all the publicly available datasets of use to this paper
 ## from https://drive.google.com/drive/folders/1m6fbCoOynP3pxi0GObSCG0_77mvYsu74
 ##
-## 2022-06-02
-## Peter Regier
+## 2022-06-02 (updated 2022-07-12)
+## Donnie Day, Peter Regier, Daniel Sandborn
 ##
 # ########### #
 # ########### #
@@ -14,6 +14,8 @@ require(pacman)
 p_load(tidyverse, ## keep things tidy
        googledrive) ## download files from google drive
 
+## Set up common columns that are routinely used to in select() and join() calls
+common_cols = c("kit_id", "transect_location")
 
 # 2. Import datasets -----------------------------------------------------------
 
@@ -30,6 +32,10 @@ metadata_path <- "https://drive.google.com/drive/folders/1IQUq_sD-Jama7ajaZl1zW_
 data_filenames <- drive_ls(data_path) %>% pull(name)
 metadata_filenames <- drive_ls(metadata_path) %>% pull(name)
 
+## Should allow you to download as tempfile that automatically deletes itself, 
+## but didn't work on first try, so bypassing for now
+##tf <- tempfile()
+
 ## Now, download those files to your local
 lapply(data_filenames, drive_download, overwrite = T)
 lapply(metadata_filenames, drive_download, overwrite = T)
@@ -42,11 +48,6 @@ cdom <- read_csv(data_filenames[grepl("CDOM.*csv", data_filenames)]) %>%
   rename("a254" = `Abs 254nm`)
 gwc <- read_csv(data_filenames[grepl("GWC", data_filenames)])
 ions <- read_csv(data_filenames[grepl("Ions", data_filenames)])
-metadata_raw <- read_csv(metadata_filenames[grepl("Metadata_Collection", metadata_filenames)])
-regions <- read_csv(metadata_filenames[grepl("KitLevel", metadata_filenames)]) %>%
-  mutate(kit_id = paste0("K", kit_id)) %>% 
-  select(kit_id, region) %>% 
-  add_row(kit_id = "K041", region = "Chesapeake Bay")
 loi <- read_csv(data_filenames[grepl("LOI", data_filenames)])
 npoc_tdn <- read_csv(data_filenames[grepl("NPOC_TDN", data_filenames)])
 o2_drawdown <- read_csv(data_filenames[grepl("OxygenDrawdown", data_filenames)])
@@ -59,13 +60,142 @@ tss <- read_csv(data_filenames[grepl("TSS", data_filenames)]) %>%
   summarize(tss_mg_perl = sum(tss_mg_perl))
 wq <- read_csv(data_filenames[grepl("WaterQuality", data_filenames)])
 
+
+# 3. Read in and clean up metadata ---------------------------------------------
+
+## Read in Kit-level metadata. Columns of interest are: 
+kit_level_raw <- read_csv(metadata_filenames[grepl("KitLevel.csv", metadata_filenames)]) %>% 
+  ## There's no K041 in the metadata, so add manually
+  add_row(kit_id = "K041", region = "Chesapeake Bay") %>% 
+  ## Fix a single problem cell with air temp (given as a range)
+  mutate(air_temp_c = as.double(ifelse(air_temperature_c == "21.1111-25", mean(c(21.1, 25)), air_temperature_c)), 
+         ## Recode weather as numeric
+         weather = case_when(weather_conditions == "Sunny" ~ 1,
+                             weather_conditions == "Cloudy" ~ 2,
+                             weather_conditions == "Overcast" ~ 3,
+                             weather_conditions == "NA" ~ NaN), 
+         ## Convert barometric pressure to double
+         pressure_inhg = as.double(barometric_pressure_inhg)) %>% 
+  select(kit_id, air_temp_c, weather, pressure_inhg)
+        
+## Read in Collection-level data, but don't format because we aren't going to
+## use any of these data
+collection_data_raw <- read_csv(metadata_filenames[grepl("Data_CollectionLevel.csv", metadata_filenames)])
+
+
+## Read in Collection-level metadata. This is a big ole file with lots of interesting
+## things, but needs lots of TLC
+collection_metadata_raw <- read_csv(metadata_filenames[grepl("Metadata_CollectionLevel.csv", metadata_filenames)]) 
+
+## Manual cleanup of misleading system types
+collection_metadata_raw[11, 'water_systemtype'] <- "Estuary" #Chesapeake Bay National 
+# Estuarine Research Reserve. Away from Pamunkey R; tidal descriptor misleading.
+
+collection_metadata_raw[24, 'water_systemtype'] <- "Lacestuary" #Houghton, MI.  Despite seiche, 
+# tidal river characterization is misleading.
+
+collection_metadata_raw[43, 'water_systemtype'] <- "Tidal River" #Upper Patuxent.  Label "fresh-
+# -water" is redundant given conductivity data.
+
+collection_metadata <- collection_metadata_raw %>% 
+  ## Rename lat and long, we're using just water to keep things simpler
+  mutate(latitude = water_latitude, 
+         longitude = water_longitude, 
+         ## Recode macro + algae to Both
+         water_macrophytes_algae = ifelse(water_macrophytes_algae == "Macrophytes, Algae", 
+                              "Both", 
+                              water_macrophytes_algae)) %>% 
+  ## Now integerize it
+  mutate(macro_algae_num = case_when(water_macrophytes_algae == "None" ~ 1, 
+                                     water_macrophytes_algae == "Algae" ~ 2, 
+                                     water_macrophytes_algae == "Macrophytes" ~ 3, 
+                                     water_macrophytes_algae == "Both" ~ 4, 
+                                     water_macrophytes_algae == "NA" ~ NaN),
+         water_systemtype = ifelse(water_systemtype == "Tidal Stream" |
+                                      water_systemtype == "Tidal stream", 
+                                   "Tidal River", water_systemtype), 
+         water_systemtype_num = case_when(water_systemtype == "Tidal River" ~ 1, 
+                                          water_systemtype == "Estuary" ~ 2, 
+                                          water_systemtype == "Lacestuary" ~ 3, 
+                                          water_systemtype == "Lake" ~ 3, 
+                                          water_systemtype == "NA" ~ NaN), 
+         h2s_num = case_when(
+           sediment_rotten_egg_smell == "No" ~ 0,
+           sediment_rotten_egg_smell == 'Yes' ~ 1,
+           sediment_rotten_egg_smell == 'NA' ~ NaN)) %>% 
+  select(kit_id, latitude, longitude, 
+         water_macrophytes_algae, macro_algae_num, 
+         water_systemtype, water_systemtype_num, 
+         sediment_rotten_egg_smell, h2s_num)
+
+
+## We're going to set up a helper function for integerizing soil horizons since
+## we need to do the same thing for wetland, transition, and upland soils
+integerize_horizons <- function(col){
+  case_when(col == "H" ~ 1, 
+            col == "O" ~ 2, 
+            col == "A" ~ 3, 
+            col == "C" ~ 4, 
+            col == "NA" ~ NaN, 
+            col == "" ~ NaN)
+}
+
+## Read in manually assigned soil types (per Donnie)
+collection_metadata_soiltypes_raw <- read_csv("data/220713_soil_types_from_donnie.csv")
+
+## Awkward bind_rows: tried a function that didn't work easily so brute-forced it
+collection_metadata_soiltypes <- bind_rows(collection_metadata_soiltypes_raw %>% 
+  mutate(transect_location = "Wetland", 
+         horizon = wetland_soil_horizon, 
+         horizon_des = `wt_Simple Horizon designation`,
+         horizon_num = integerize_horizons(horizon_des)) %>% 
+    select(kit_id, transect_location, horizon, horizon_des, horizon_num), 
+  collection_metadata_soiltypes_raw %>% 
+    mutate(transect_location = "Transition", 
+           horizon = transition_soil_horizon, 
+           horizon_des = `tr_Simple Horizon designation`,
+           horizon_num = integerize_horizons(horizon_des)) %>% 
+    select(kit_id, transect_location, horizon, horizon_des, horizon_num), 
+  collection_metadata_soiltypes_raw %>% 
+    mutate(transect_location = "Upland", 
+           horizon = upland_soil_horizon, 
+           horizon_des = `up_Simple Horizon designation`,
+           horizon_num = integerize_horizons(horizon_des)) %>% 
+    select(kit_id, transect_location, horizon, horizon_des, horizon_num))
+
+
+## I don't have a more elegant solution, so I'm going to pivot_longer 3 times
+collection_metadata_soiltypes_raw %>% 
+  pivot_longer(cols = c(wetland_soiltype_num, wetland_soil_horizon), 
+               names_to = )
+
+## Read in hex/rgb values inferred from sediment color (per Daniel)
+collection_metadata_sedcolors <- read_csv("data/220713_sed_colors_from_daniel.csv")
+
+## Now combine all metadata sheets
+metadata <- full_join(collection_metadata_soiltypes, collection_metadata, by = "kit_id") %>% 
+  full_join(collection_metadata_sedcolors, by = "kit_id")
+
+## Now, combine into a single collection-level dataset
+
+
+  
+
+
+        
+        
+        
+        
+  
+
+
 ## Most datasets are ready, but metadata needs a little cleanup love before joining
 metadata <- metadata_raw %>% 
   mutate(latitude = water_latitude, longitude = water_longitude) %>% 
   select(kit_id, latitude, longitude, water_macrophytes_algae, water_systemtype, 
          sediment_rotten_egg_smell)
 
-# 3. Join datasets -------------------------------------------------------------
+# 4. Join datasets -------------------------------------------------------------
 
 ## To make things simple, define common columns used to join datasets
 common_cols = c("kit_id", "transect_location")
