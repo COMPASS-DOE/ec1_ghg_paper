@@ -76,7 +76,7 @@ kit_level_raw <- read_csv(metadata_filenames[grepl("KitLevel.csv", metadata_file
                              weather_conditions == "NA" ~ NaN), 
          ## Convert barometric pressure to double
          pressure_inhg = as.double(barometric_pressure_inhg)) %>% 
-  select(kit_id, air_temp_c, weather, pressure_inhg)
+  select(kit_id, region, air_temp_c, weather, pressure_inhg)
         
 ## Read in Collection-level data, but don't format because we aren't going to
 ## use any of these data
@@ -173,32 +173,12 @@ collection_metadata_soiltypes_raw %>%
 collection_metadata_sedcolors <- read_csv("data/220713_sed_colors_from_daniel.csv")
 
 ## Now combine all metadata sheets
-metadata <- full_join(collection_metadata_soiltypes, collection_metadata, by = "kit_id") %>% 
+metadata <- full_join(collection_metadata_soiltypes, kit_level_raw, by = "kit_id")%>% 
+  full_join(collection_metadata, by = "kit_id") %>% 
   full_join(collection_metadata_sedcolors, by = "kit_id")
 
-## Now, combine into a single collection-level dataset
-
-
-  
-
-
-        
-        
-        
-        
-  
-
-
-## Most datasets are ready, but metadata needs a little cleanup love before joining
-metadata <- metadata_raw %>% 
-  mutate(latitude = water_latitude, longitude = water_longitude) %>% 
-  select(kit_id, latitude, longitude, water_macrophytes_algae, water_systemtype, 
-         sediment_rotten_egg_smell)
 
 # 4. Join datasets -------------------------------------------------------------
-
-## To make things simple, define common columns used to join datasets
-common_cols = c("kit_id", "transect_location")
 
 ## Read in greenhouse gases and set up for joining with O2
 ghg <- read_csv("data/ghg.csv") %>% 
@@ -206,10 +186,8 @@ ghg <- read_csv("data/ghg.csv") %>%
   select(-date, -site) %>% 
   filter(!is.na(pco2) & !is.na(pch4) & !is.na(pn2o))
 
-
 ## Gather the gases
-gases <- full_join(ghg, o2_drawdown %>% select(common_cols, delta_do_hr), by = common_cols) %>% 
-  left_join(regions %>% select(kit_id, region), by = "kit_id")
+gases <- full_join(ghg, o2_drawdown %>% select(common_cols, delta_do_hr), by = common_cols) 
 
 ## Gather the water samples
 water_datasets <- full_join(ions %>% select(kit_id, contains("ppm")), 
@@ -224,7 +202,7 @@ soil_datasets <- full_join(bd %>% select(common_cols, bulk_density_g_cm3),
   full_join(loi %>% select(common_cols, loi_perc), by = common_cols)  %>% 
   full_join(soil_ph %>% select(common_cols, soil_ph, soil_cond), by = common_cols) %>% 
   full_join(tctn %>% select(common_cols, tn_perc, tc_perc), by = common_cols) %>% 
-  full_join(metadata, by = "kit_id")
+  full_join(metadata, by = common_cols)
 
 master <- left_join(gases, water_datasets, by = "kit_id") %>% 
   left_join(soil_datasets, by = common_cols)
