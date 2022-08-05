@@ -24,6 +24,11 @@ common_cols = c("kit_id", "transect_location")
 ## you will need to authorize via the Tidyverse API using an email address with
 ## access the EXCHANGE Google Drive folder.
 
+## This is KEY: it avoids user input, and will automatically find the token. 
+## This has, I think, timed out before. If so, just run drive_auth() and select
+## the proper email.
+options(gargle_oauth_email = "peter.regier@pnnl.gov")
+
 ## Set two paths for the two folders with data we want
 data_path <- "https://drive.google.com/drive/folders/1r3sP7tvhG2btZACvxZUdtrtSiLVGUUGp"
 metadata_path <- "https://drive.google.com/drive/folders/1IQUq_sD-Jama7ajaZl1zW_9zlWfyCohn"
@@ -44,8 +49,7 @@ lapply(metadata_filenames, drive_download, overwrite = T)
 ## BD = bulk density, GWC = gravimetric water content, LOI = loss on ignition,
 ## O2 = oxygen, TC = total carbon, TN = total nitrogen, WQ = water quality
 bd <- read_csv(data_filenames[grepl("BulkDensity", data_filenames)])
-cdom <- read_csv(data_filenames[grepl("CDOM.*csv", data_filenames)]) %>% 
-  rename("a254" = `Abs 254nm`)
+cdom <- read_csv("data/EC1_CDOM_spectral_indices.csv")
 gwc <- read_csv(data_filenames[grepl("GWC", data_filenames)])
 ions <- read_csv(data_filenames[grepl("Ions", data_filenames)])
 loi <- read_csv(data_filenames[grepl("LOI", data_filenames)])
@@ -165,9 +169,9 @@ collection_metadata_soiltypes <- bind_rows(collection_metadata_soiltypes_raw %>%
 
 
 ## I don't have a more elegant solution, so I'm going to pivot_longer 3 times
-collection_metadata_soiltypes_raw %>% 
-  pivot_longer(cols = c(wetland_soiltype_num, wetland_soil_horizon), 
-               names_to = )
+# collection_metadata_soiltypes_raw %>% 
+#   pivot_longer(cols = c(wetland_soiltype_num, wetland_soil_horizon), 
+#                names_to = )
 
 ## Read in hex/rgb values inferred from sediment color (per Daniel)
 collection_metadata_sedcolors <- read_csv("data/220713_sed_colors_from_daniel.csv")
@@ -189,9 +193,20 @@ ghg <- read_csv("data/ghg.csv") %>%
 ## Gather the gases
 gases <- full_join(ghg, o2_drawdown %>% select(common_cols, delta_do_hr), by = common_cols) 
 
+d_gases <- gases %>% 
+  select(kit_id, transect_location, type, pco2_c, pch4_c, pn2o_c) %>% 
+  distinct() %>% 
+  drop_na() %>% 
+  pivot_wider(names_from = type, 
+              values_from = c(pco2_c, pch4_c, pn2o_c)) %>% 
+  mutate(d_pco2 = pco2_c_wet - pco2_c_dry, 
+         d_pch4 = pch4_c_wet - pch4_c_dry, 
+         d_pn2o = pn2o_c_wet - pn2o_c_dry) %>% 
+  select(-contains("wet"), -contains("dry"))
+
 ## Gather the water samples
 water_datasets <- full_join(ions %>% select(kit_id, contains("ppm")), 
-                            cdom %>% select(kit_id, a254, BIX, FI, HIX, SUVA254), by = "kit_id") %>% 
+                            cdom %>% select(kit_id, BIX, FI, HIX, SUVA254), by = "kit_id") %>% 
   full_join(wq %>% select(kit_id, sal_psu, ph, orp_mv, alk_mgl_caco3), by = "kit_id") %>% 
   full_join(npoc_tdn %>% select(kit_id, npoc_mgl, tdn_mgl), by = "kit_id")  %>% 
   full_join(tss %>% select(kit_id, tss_mg_perl), by = "kit_id")
@@ -201,14 +216,16 @@ soil_datasets <- full_join(bd %>% select(common_cols, bulk_density_g_cm3),
                          gwc %>% select(common_cols, gwc_perc), by = common_cols) %>% 
   full_join(loi %>% select(common_cols, loi_perc), by = common_cols)  %>% 
   full_join(soil_ph %>% select(common_cols, soil_ph, soil_cond), by = common_cols) %>% 
-  full_join(tctn %>% select(common_cols, tn_perc, tc_perc), by = common_cols) %>% 
-  full_join(metadata, by = common_cols)
+  full_join(tctn %>% select(common_cols, tn_perc, tc_perc), by = common_cols)
 
-master <- left_join(gases, water_datasets, by = "kit_id") %>% 
-  left_join(soil_datasets, by = common_cols)
+master <- left_join(gases, d_gases, by = common_cols) %>% 
+  left_join(water_datasets, by = "kit_id") %>% 
+  left_join(soil_datasets, by = common_cols) %>% 
+  full_join(metadata, by = common_cols) %>% 
+  filter(!is.na(type))
 
-## If you want to delete the downloaded files from your local, run lines below:
-file.remove(c(data_filenames, metadata_filenames))
+## If you want to delete the downloaded files from your local, run line below:
+#file.remove(c(data_filenames, metadata_filenames))
 
 
 # 4. Write merged uploaded data to file ----------------------------------------
