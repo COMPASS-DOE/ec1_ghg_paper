@@ -225,7 +225,7 @@ master <- left_join(gases, d_gases, by = common_cols) %>%
   filter(!is.na(type))
 
 ## If you want to delete the downloaded files from your local, run line below:
-#file.remove(c(data_filenames, metadata_filenames))
+file.remove(c(data_filenames, metadata_filenames))
 
 
 # 4. Write merged uploaded data to file ----------------------------------------
