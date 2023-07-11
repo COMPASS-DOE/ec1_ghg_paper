@@ -1,6 +1,0 @@
-﻿File_Name,File_Description,Standard,Start_Date,End_Date,Missing_Value_Codes
-README_ec1_ghg.pdf,Data package level readme. Contains data package summary; acknowledgements; and contact information. ,N/A,-9999,-9999,N/A
-ec1_ghg_dd.csv,Data dictionary that defines column headers across all csv files contained in the data package.,N/A,-9999,-9999,N/A
-ec1_ghg_flmd.csv,File-level metadata that lists and describes all of the files contained in the data package.,N/A,-9999,-9999,N/A
-230417_do_consumption_final.csv,Data for dissolved oxygen consumption rates,NA,-9999,-9999,N/A
-230417_ghg_final.csv,Data for greenhouse gas concentrations,NA,-9999,-9999,N/A

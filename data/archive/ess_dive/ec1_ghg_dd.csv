@@ -1,9 +1,0 @@
-﻿Column_or_Row_Name,Unit,Definition,Term_Type,Data_Type
-kit_id,N/A,EXCHANGE EC1 Kit ID,column_header,character
-transect_location,N/A,"Location along the terrestrial-aquatic interface (Sediment, Wetland, Transition, or Upland)",column_header,character
-delta_do_hr,mg/L/hr,Rate of dissolved oxygen consumption for soils/sediments inundated with seawater over 24 hours,column_header,numeric
-region,N/A,EXCHANGE EC1 Kit ID,column_header,character
-type,N/A,"Inundation type: ""wet"" (inundated with seawater) or ""dry"" (not inundated with seawater)",column_header,character
-pco2_uM,uM,Concentration of CO2 after 24 hours in sample,column_header,numeric
-pch4_nM,nM,Concentration of CH4 after 24 hours in sample,column_header,numeric
-pn2o_uM,uM,Concentration of N2O after 24 hours in sample,column_header,numeric
