@@ -46,3 +46,4 @@ vignettes/*.pdf
 
 tempfile.dat
 
+*ess_dive/*

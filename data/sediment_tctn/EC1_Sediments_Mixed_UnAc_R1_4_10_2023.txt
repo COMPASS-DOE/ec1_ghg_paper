@@ -1,0 +1,61 @@
+Signal	Signal	Peak	Reten.	Response	Response	Weight	Weight	Peak	Element									
+No.	Name	No.	time [min]		Base	[mg]	[%]	Type	Name									
+1	Colibrick - 1	1	1.749	13.276	A	0.0201	0.134	Refer	Nitrogen									
+1	Colibrick - 1	2	3.165	480.692	A	0.27	1.8	Refer	Carbon									
+1	Colibrick - 1		Total			15.0036	1.934											
+																		
+Primary file : 	K054_SED_r2_4_10_2023 3_56_30 PM_048	Analyst  : 	Khadijah															
+Sample ID    : 	K054_SED_r2	From     : 	"Mon, 10th Apr, 2023"	 4:02:00 PM														
+Sample       : 	K054_SED_r2																	
+Instrument   : 	Instrument 1	Method   : 	C_N															
+Sample Weight:	15.004	[mg]	15.004															
+Peak width   :	0.1	[min]	Threshold :	0.1	[mV]													
+																		
+		sample	sample_id					tn_perc							tc_perc			
+		Sample	Sample ID	Sample Weight [mg]	Nitrogen	Nitrogen	Nitrogen	Nitrogen	Nitrogen	Nitrogen	Nitrogen	Carbon	Carbon	Carbon	Carbon	Carbon	Carbon	Carbon
+					Reten. Time	Response	Weight	Weight	Peak Type	Element	Carbon Response Ratio	Reten. Time	Response	Weight	Weight	Peak Type	Element	Carbon Response Ratio
+					[min]		[mg]	[%]		Name		[min]		[mg]	[%]		Name	
+Calib\Blank_186_4_10_2023 11_11_20 AM_001	Colibrick - 1	Blank_186	Blank_186	0	1.76	4.132	0.006	100	Refer	Nitrogen	???							
+Calib\STD297_0.1_4_10_2023 11_38_56 AM_006	Colibrick - 1	STD297_0.1	STD297_0.1	0.106	1.732	5.7	0.009	8.16	Refer	Nitrogen	0.052	3.204	110.166	0.062	58.22	Refer	Carbon	1
+Calib\STD298_0.2_4_10_2023 11_44_27 AM_007	Colibrick - 1	STD298_0.2	STD298_0.2	0.204	1.737	11.54	0.017	8.56	Refer	Nitrogen	0.051	3.189	226.26	0.127	62.1	Refer	Carbon	1
+Calib\STD299_0.5_4_10_2023 11_49_59 AM_008	Colibrick - 1	STD299_0.5	STD299_0.5	0.497	1.735	30.877	0.047	9.4	Refer	Nitrogen	0.053	3.176	584.592	0.329	66.21	Refer	Carbon	1
+Calib\STD230_1.0_4_10_2023 11_55_30 AM_009	Colibrick - 1	STD230_1.0	STD230_1.0	1.041	1.735	68.754	0.104	9.99	Refer	Nitrogen	0.054	3.151	1280.39	0.728	69.94	Refer	Carbon	1
+Calib\STD231_1.5_4_10_2023 12_01_02 PM_010	Colibrick - 1	STD231_1.5	STD231_1.5	1.512	1.737	102.616	0.155	10.26	Refer	Nitrogen	0.055	3.132	1876.011	1.077	71.24	Refer	Carbon	1
+Calib\STD232_2.0_4_10_2023 12_06_34 PM_011	Colibrick - 1	STD232_2.0	STD232_2.0	2.071	1.736	142.083	0.215	10.38	Refer	Nitrogen	0.055	3.108	2562.379	1.489	71.89	Refer	Carbon	1
+Calib\STD233_2.5_4_10_2023 12_12_06 PM_012	Colibrick - 1	STD233_2.5	STD233_2.5	2.5	1.741	172.045	0.26	10.41	Refer	Nitrogen	0.056	3.1	3081.835	1.806	72.26	Refer	Carbon	1
+Calib\STD234_3.0_4_10_2023 12_17_38 PM_013	Colibrick - 1	STD234_3.0	STD234_3.0	3.004	1.741	207.052	0.313	10.42	Refer	Nitrogen	0.058	3.095	3566.902	2.109	70.19	Refer	Carbon	1
+CK_C59_4_10_2023 12_27_24 PM_014	Colibrick - 1	CK_C59	CK_C59	5.087	1.737	7.163	0.011	0.21	Refer	Nitrogen	0.027	3.251	269.22	0.151	2.96	Refer	Carbon	1
+CK_N38_4_10_2023 12_32_56 PM_015	Colibrick - 1	CK_N38	CK_N38	2.072	1.743	75.052	0.114	5.48	Refer	Nitrogen	0.061	3.169	1229.599	0.699	33.73	Refer	Carbon	1
+CK_AP40_4_10_2023 12_38_28 PM_016	Colibrick - 1	CK_AP40	CK_AP40	2.067	1.732	67.053	0.101	4.91	Refer	Nitrogen	0.027	3.112	2512.51	1.458	70.54	Refer	Carbon	1
+K062_SED_r1_4_10_2023 12_44_00 PM_017	Colibrick - 1	K062_SED_r1	K062_SED_r1	15.035	1.752	48.743	0.074	0.49	Refer	Nitrogen	0.047	3.185	1034.035	0.586	3.9	Refer	Carbon	1
+K015_SED_r1_4_10_2023 12_49_31 PM_018	Colibrick - 1	K015_SED_r1	K015_SED_r1	15.01	1.743	34.981	0.053	0.35	Refer	Nitrogen	0.036	3.181	979.51	0.555	3.69	Refer	Carbon	1
+K059_SED_r1_4_10_2023 12_55_03 PM_019	Colibrick - 1	K059_SED_r1	K059_SED_r1	14.992	1.755	50.448	0.076	0.51	Refer	Nitrogen	0.034	3.163	1485.166	0.848	5.65	Refer	Carbon	1
+K026_SED_r1_4_10_2023 1_00_35 PM_020	Colibrick - 1	K026_SED_r1	K026_SED_r1	15.073	1.759	25.778	0.039	0.26	Refer	Nitrogen	0.039	3.216	667.948	0.376	2.5	Refer	Carbon	1
+K018_SED_r1_4_10_2023 1_06_07 PM_021	Colibrick - 1	K018_SED_r1	K018_SED_r1	15.023	0	0	0	0	0	0	0	3.268	32.781	0.018	0.12	Refer	Carbon	1
+K025_SED_r1_4_10_2023 1_11_39 PM_022	Colibrick - 1	K025_SED_r1	K025_SED_r1	15.075	1.736	5.853	0.009	0.06	Refer	Nitrogen	0.026	3.225	226.641	0.127	0.84	Refer	Carbon	1
+K037_SED_r1_4_10_2023 1_17_12 PM_023	Colibrick - 1	K037_SED_r1	K037_SED_r1	15.086	1.755	33.535	0.051	0.34	Refer	Nitrogen	0.036	3.185	936.278	0.53	3.51	Refer	Carbon	1
+K017-SED_r1_4_10_2023 1_22_44 PM_024	Colibrick - 1	K017_SED_r1	K017-SED_r1	15.006	1.743	31.352	0.047	0.32	Refer	Nitrogen	0.038	3.18	814.585	0.46	3.07	Refer	Carbon	1
+K030_SED_r1_4_10_2023 1_28_16 PM_025	Colibrick - 1	K030_SED_r1	K030_SED_r1	15.072	1.755	42.474	0.064	0.43	Refer	Nitrogen	0.039	3.172	1079.22	0.612	4.06	Refer	Carbon	1
+K041_SED_r1_4_10_2023 1_33_49 PM_026	Colibrick - 1	K041_SED_r1	K041_SED_r1	15.053	1.737	5.395	0.008	0.05	Refer	Nitrogen	0.031	3.216	174.222	0.097	0.65	Refer	Carbon	1
+CK_C60_4_10_2023 2_00_02 PM_027	Colibrick - 1	CK_C60	CK_C60	5.078	1.752	8.193	0.012	0.24	Refer	Nitrogen	0.028	3.187	296.22	0.166	3.27	Refer	Carbon	1
+K052_SED_r1_4_10_2023 2_05_34 PM_028	Colibrick - 1	K052_SED_r1	K052_SED_r1	15.073	1.755	59.965	0.091	0.6	Refer	Nitrogen	0.037	3.133	1622.688	0.928	6.16	Refer	Carbon	1
+K034_SED_r1_4_10_2023 2_11_07 PM_029	Colibrick - 1	K034_SED_r1	K034_SED_r1	15.059	1.751	42.759	0.065	0.43	Refer	Nitrogen	0.042	3.155	1029.452	0.583	3.87	Refer	Carbon	1
+K050_SED_r1_4_10_2023 2_16_40 PM_030	Colibrick - 1	K050_SED_r1	K050_SED_r1	15.027	0	0	0	0	0	0	0	3.219	44.006	0.025	0.16	Refer	Carbon	1
+K044_SED_r1_4_10_2023 2_22_13 PM_031	Colibrick - 1	K044_SED_r1	K044_SED_r1	15.095	1.756	40.016	0.061	0.4	Refer	Nitrogen	0.039	3.165	1029.264	0.583	3.86	Refer	Carbon	1
+K054_SED_r1_4_10_2023 2_27_45 PM_032	Colibrick - 1	K054_SED_r1	K054_SED_r1	15.011	1.755	15.724	0.024	0.16	Refer	Nitrogen	0.024	3.167	648.683	0.365	2.43	Refer	Carbon	1
+K062_SED_r2_4_10_2023 2_33_18 PM_033	Colibrick - 1	K062_SED_r2	K062_SED_r2	14.999	1.751	47.565	0.072	0.48	Refer	Nitrogen	0.046	3.164	1029.962	0.584	3.89	Refer	Carbon	1
+K015_SED_r2_4_10_2023 2_38_51 PM_034	Colibrick - 1	K015_SED_r2	K015_SED_r2	15.064	1.751	33.357	0.05	0.33	Refer	Nitrogen	0.038	3.171	872.602	0.493	3.27	Refer	Carbon	1
+K059_SED_r2_4_10_2023 2_44_23 PM_035	Colibrick - 1	K059_SED_r2	K059_SED_r2	15.01	1.748	49.316	0.075	0.5	Refer	Nitrogen	0.036	3.141	1364.535	0.777	5.18	Refer	Carbon	1
+K026_SED_r2_4_10_2023 2_49_57 PM_036	Colibrick - 1	K026_SED_r2	K026_SED_r2	15.022	1.752	24.768	0.037	0.25	Refer	Nitrogen	0.039	3.176	635.624	0.358	2.38	Refer	Carbon	1
+K018_SED_r2_4_10_2023 2_55_29 PM_037	Colibrick - 1	K018_SED_r2	K018_SED_r2	15.023	0	0	0	0	0	0	0	3.216	41.879	0.023	0.16	Refer	Carbon	1
+CK_C61_4_10_2023 3_01_02 PM_038	Colibrick - 1	CK_C61	CK_C61	5.019	1.751	6.766	0.01	0.2	Refer	Nitrogen	0.029	3.187	235.123	0.132	2.62	Refer	Carbon	1
+K025_SED_r2_4_10_2023 3_06_35 PM_039	Colibrick - 1	K025_SED_r2	K025_SED_r2	15.003	1.74	6.053	0.009	0.06	Refer	Nitrogen	0.031	3.173	197.524	0.11	0.74	Refer	Carbon	1
+K037_SED_r2_4_10_2023 3_12_08 PM_040	Colibrick - 1	K037_SED_r2	K037_SED_r2	15.04	1.748	31.347	0.047	0.32	Refer	Nitrogen	0.037	3.151	841.019	0.475	3.16	Refer	Carbon	1
+K017_SED_r2_4_10_2023 3_17_41 PM_041	Colibrick - 1	K017_SED_r2	K017_SED_r2	15.085	1.764	30.806	0.047	0.31	Refer	Nitrogen	0.04	3.169	767.766	0.433	2.87	Refer	Carbon	1
+K030_SED_r2_4_10_2023 3_23_13 PM_042	Colibrick - 1	K030_SED_r2	K030_SED_r2	15.074	1.753	41.396	0.063	0.42	Refer	Nitrogen	0.04	3.155	1037.722	0.588	3.9	Refer	Carbon	1
+K041_SED_r2_4_10_2023 3_28_46 PM_043	Colibrick - 1	K041_SED_r2	K041_SED_r2	15.073	1.749	4.755	0.007	0.05	Refer	Nitrogen	0.023	3.205	205.489	0.115	0.76	Refer	Carbon	1
+K052_SED_r2_4_10_2023 3_34_19 PM_044	Colibrick - 1	K052_SED_r2	K052_SED_r2	15.066	1.751	57.395	0.087	0.58	Refer	Nitrogen	0.038	3.129	1520.534	0.868	5.76	Refer	Carbon	1
+K034_SED_r2_4_10_2023 3_39_52 PM_045	Colibrick - 1	K034_SED_r2	K034_SED_r2	15.093	1.749	44.181	0.067	0.44	Refer	Nitrogen	0.043	3.153	1038.35	0.588	3.9	Refer	Carbon	1
+K050_SED_r2_4_10_2023 3_45_25 PM_046	Colibrick - 1	K050_SED_r2	K050_SED_r2	15.058	0	0	0	0	0	0	0	3.203	40.033	0.022	0.15	Refer	Carbon	1
+K044_SED_r2_4_10_2023 3_50_57 PM_047	Colibrick - 1	K044_SED_r2	K044_SED_r2	15.003	1.756	38.615	0.058	0.39	Refer	Nitrogen	0.041	3.167	947.139	0.536	3.57	Refer	Carbon	1
+K054_SED_r2_4_10_2023 3_56_30 PM_048	Colibrick - 1	K054_SED_r2	K054_SED_r2	15.004	1.749	13.276	0.02	0.13	Refer	Nitrogen	0.028	3.165	480.692	0.27	1.8	Refer	Carbon	1

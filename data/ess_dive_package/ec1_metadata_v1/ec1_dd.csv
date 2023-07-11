@@ -1,0 +1,254 @@
+File_Name,Column_Name,Unit,Definition,Data_Type
+ec1_data_collectionlevel.csv,kit_id,NA,EXCHANGE EC1 Kit ID,character
+ec1_data_collectionlevel.csv,water_color_forel-ule_scale,NA,Classification of water using the Forel-Ule scale via EyeOnWater (https://www.eyeonwater.org/),numeric
+ec1_data_collectionlevel.csv,water_dissolved_o2_mg_l,mg/L,Dissolved oxygen in milligrams per liter of water location if measired,numeric
+ec1_data_collectionlevel.csv,water_orp_mv,mV,Oxygen Reduction Potential in milliVolts of water location if measured,numeric
+ec1_data_collectionlevel.csv,water_ph,unitless,pH of water if measured,numeric
+ec1_data_collectionlevel.csv,upland_soil_temperature_degC,celcius,Soil temperature of upland site if measured,numeric
+ec1_data_collectionlevel.csv,upland_soil_moisture,NA,Soil moisture of upland site if measured,character
+ec1_data_collectionlevel.csv,transition_soil_temperature_degC,celcius,Soil temperature of transition site if measured,numeric
+ec1_data_collectionlevel.csv,transition_soil_moisture,NA,Soil moisture of transition site if measured,character
+ec1_data_collectionlevel.csv,wetland_soil_temperature_degC,celcius,Soil temperature of wetland site if measured,numeric
+ec1_data_collectionlevel.csv,wetland_soil_moisture,NA,Soil moisture of wetland site if measured,character
+ec1_metadata_collectionlevel.csv,kit_id,NA,EXCHANGE EC1 Kit ID,character
+ec1_metadata_collectionlevel.csv,transect_location,NA,"Sampling location for sediment/soil along the coastal terrestrial-aquatic interface (Sediment, Wetland, Transition, or Upland)",character
+ec1_metadata_collectionlevel.csv,latitude,degrees,Latitude of the location where the sample was collected,numeric
+ec1_metadata_collectionlevel.csv,longitude,degrees,Longitude of the location where the sample was collected,numeric
+ec1_metadata_collectionlevel.csv,elevation_m,meters,"Elevation where the sample was collected, Google Earth used is value was not provided",numeric
+ec1_metadata_collectionlevel.csv,collection_time_utc,UTC,Time the sample was collected,POSIXct
+ec1_metadata_collectionlevel.csv,macrophytes_algae,NA,Did the water sample site have macrophytes or algae present,character
+ec1_metadata_collectionlevel.csv,systemtype,NA,"Type of water system (i.e. Estuary, Tidal Stream, Tidal River, Lake, Lacestuary)",character
+ec1_metadata_collectionlevel.csv,volume_ml,mL,Volume of water sample passed through filter,numeric
+ec1_metadata_collectionlevel.csv,notes,NA,Notes,character
+ec1_metadata_collectionlevel.csv,soil_type,NA,Classification of soil type based on coordinates via SoilWeb (https://casoilresource.lawr.ucdavis.edu/gmap/),character
+ec1_metadata_collectionlevel.csv,rotten_egg_smell,NA,Did sediment smell like rotten eggs at time of collection,character
+ec1_metadata_collectionlevel.csv,color,NA,"Color of sidement sample at time of collection (i.e. Black, Grey, Reddish, Light Chocolate, Dark Chocolate) ",character
+ec1_metadata_collectionlevel.csv,soil_horizon,NA,Soil Horizon (i.e. Mineral or Organic),character
+ec1_metadata_collectionlevel.csv,ecosystem_code_IGBP,NA,International Geosphere–Biosphere Programme ecosystem type codes; http://www.eomf.ou.edu/static/IGBP.pdf,numeric
+ec1_metadata_collectionlevel.csv,elevation_flag,NA,Flag is elevation is inconsistent across the transect gradient,character
+ec1_metadata_igsn.csv,IGSN,NA,Globally unique and persistent identifier for the sample,character
+ec1_metadata_igsn.csv,Sample Name,NA,Collector's project-specific sample name,character
+ec1_metadata_igsn.csv,Sample Type,NA,Broad characterization of the nature of a sample or specimen,character
+ec1_metadata_igsn.csv,Material,NA,Material that the sample consists of; see https://app.geosamples.org/reference/materials.php for list,character
+ec1_metadata_igsn.csv,Classification,NA,Informal classification of sample,character
+ec1_metadata_igsn.csv,Field Name,NA,Taxonomy (field name) Informal classification of sample,character
+ec1_metadata_igsn.csv,Description,NA,"Description of sample features, such as its components, texture, plot ID from which the sample was taken",character
+ec1_metadata_igsn.csv,Age Min,NA,Numerical value for the minimum age of a sample,numeric
+ec1_metadata_igsn.csv,Age Max,NA,Numerical value for the maximum age of a sample,numeric
+ec1_metadata_igsn.csv,Age Unit,NA,Unit for the age provided,numeric
+ec1_metadata_igsn.csv,collection Method,NA,Method by which a sample was collected,character
+ec1_metadata_igsn.csv,Collection Method Descr,NA,Additional information about the collection method,character
+ec1_metadata_igsn.csv,Size,NA,"Size of the registered object, such as the dimension of a specimen, the length of a core, or the weight of a dredge",numeric
+ec1_metadata_igsn.csv,Size Unit,NA,Unit for the numerical value provided for ‘size’,character
+ec1_metadata_igsn.csv,Geological Age,NA,"Age of a sample as described by the stratigraphic  era, period, state, etc.",numeric
+ec1_metadata_igsn.csv,Geological Unit,NA,"A body of rock established as a distinct entity in the classification of the Earth’s rocks, e.g. Supergroup, Group, Formation, or Flow",character
+ec1_metadata_igsn.csv,Comment,NA,Free text to add any comments pertaining to the sample,character
+ec1_metadata_igsn.csv,Purpose,NA,"Free text to describe the collection purpose of the sample, e.g.",character
+ec1_metadata_igsn.csv,Release Date,NA,"Date when sample metadata is publicly accessible and searchable. If null, defaults to date of registration (recommended).",character
+ec1_metadata_igsn.csv,Latitude,degrees,Latitude of the location where the sample was collected,numeric
+ec1_metadata_igsn.csv,Latitude End,degrees,End latitude of the location where the sample was collected,numeric
+ec1_metadata_igsn.csv,Longitude,degrees,Longitude of the location where the sample was collected,numeric
+ec1_metadata_igsn.csv,Longitude End,degrees,End longitude of the location where the sample was collected,numeric
+ec1_metadata_igsn.csv,Elevation,meters,Elevation at which a sample was collected,numeric
+ec1_metadata_igsn.csv,Elevation End,meters,Elevation at which a sample was collected,numeric
+ec1_metadata_igsn.csv,Elevation Unit,NA,Unit in which elevation start and/or end are provided in,character
+ec1_metadata_igsn.csv,Depth Min,NA,Minimum depth at which a sample was collected from its parent core,numeric
+ec1_metadata_igsn.csv,Depth Max,NA,Maximum depth at which a sample was collected from its parent core,numeric
+ec1_metadata_igsn.csv,Depth Scale,NA,Unit in which the depth is provided,character
+ec1_metadata_igsn.csv,Nav Type Name,NA,Navigation type,character
+ec1_metadata_igsn.csv,Physiographic Feature,NA,Type of physical feature that the sample was collected from,character
+ec1_metadata_igsn.csv,Name of Physiographic Feature,NA,Name of the physiographic feature,character
+ec1_metadata_igsn.csv,Biome,NA,"Characterization of site by its vegetation, soil, climate, and wildlife",character
+ec1_metadata_igsn.csv,Location Description,NA,Free text description of the location,character
+ec1_metadata_igsn.csv,Locality,NA,Name of the specific place where the sample was collected,character
+ec1_metadata_igsn.csv,Locality Description,NA,Additional information about the specific place where the sample was collected,character
+ec1_metadata_igsn.csv,Country,NA,Country where the sample was collected,character
+ec1_metadata_igsn.csv,State/Province,NA,State or Province where the sample was collected,character
+ec1_metadata_igsn.csv,City,NA,City or Township where the sample was collected,character
+ec1_metadata_igsn.csv,Field Program/Cruise,NA,"Name or identifier of the field program (cruise or expedition), during which the sample was collected",character
+ec1_metadata_igsn.csv,Platform Type,NA,Type of platform for the cruise,character
+ec1_metadata_igsn.csv,Platform Name,NA,Name of platform for the cruise,character
+ec1_metadata_igsn.csv,Platform Description,NA,Description of the platform for the cruise,character
+ec1_metadata_igsn.csv,Launch Type Name,NA,The type of launch used to collect the sample,character
+ec1_metadata_igsn.csv,Launch Platform Name,NA,The name of the launch used to collect the sample,character
+ec1_metadata_igsn.csv,Launch Id,NA,Further identifying information about the launch,character
+ec1_metadata_igsn.csv,Collector/Chief Scientist,NA,Name of the person who collected the sample,character
+ec1_metadata_igsn.csv,Collector/Chief Scientist Detail,NA,"Institution, address, & email of the collector or chief scientist",character
+ec1_metadata_igsn.csv,Collection date,NA,Date when the sample was collected,character
+ec1_metadata_igsn.csv,collection End Date,NA,Date when the sample collection was finished (if a date range is provided),character
+ec1_metadata_igsn.csv,collection Start Time,UTC,Time when the sample was collected,character
+ec1_metadata_igsn.csv,collection End Time,UTC,Time when the sample was collected,character
+ec1_metadata_igsn.csv,Collection date precision,NA,Precision to display the collection date and time,character
+ec1_metadata_igsn.csv,Current Archive,NA,"Name of institution, museum, or repository where the sample is currently stored",character
+ec1_metadata_igsn.csv,Current Archive Contact,NA,Address and/or email of the person who should be contacted for information about or access to the sample,character
+ec1_metadata_igsn.csv,Original Archive,NA,"Name of institution, museum, or repository where the sample was originally stored",character
+ec1_metadata_igsn.csv,Original Archive Contact,NA,Address and/or email of the person who should be contacted for information about the sample’s original archive,character
+ec1_metadata_igsn.csv,Cur Registrant Name,NA,Current name of sample registrant,character
+ec1_metadata_igsn.csv,Org Registrant Name,NA,Original name of sample registrant,character
+ec1_metadata_igsn.csv,classification Comment,NA,Comments on classification,character
+ec1_metadata_igsn.csv,Is Archived,NA,TRUE/FALSE whether sample is archived,logical
+ec1_metadata_igsn.csv,URL,NA,Related URL associated with the samples,character
+ec1_metadata_kitlevel.csv,kit_id,NA,EXCHANGE EC1 Kit ID,character
+ec1_metadata_kitlevel.csv,collection_date,NA,Date of kit collection,POSIXct
+ec1_metadata_kitlevel.csv,site_name,NA,Site where kit was collected,character
+ec1_metadata_kitlevel.csv,state,NA,State where kit was collected,character
+ec1_metadata_kitlevel.csv,region,NA,Region where kit was collected (i.e. Great Lakes or Mid-Atlantic),character
+ec1_metadata_kitlevel.csv,samples_collected,NA,List of samples collected,character
+ec1_metadata_kitlevel.csv,air_temperature_degC,celcius,Air temperature during collection,numeric
+ec1_metadata_kitlevel.csv,barometric_pressure_inhg,hg,Atmospheric pressure during collection,numeric
+ec1_metadata_kitlevel.csv,weather_conditions,NA,Weather conditions during collection,character
+ec1_metadata_kitlevel.csv,kit_notes,NA,Notes,character
+ec1_sample_catalog.csv,campaign,NA,EXCHANGE campaign,character
+ec1_sample_catalog.csv,kit_id,NA,EXCHANGE EC1 Kit ID,character
+ec1_sample_catalog.csv,transect_location,NA,"Sampling location for sediment/soil along the coastal terrestrial-aquatic interface (Sediment, Wetland, Transition, or Upland)",character
+ec1_sample_catalog.csv,ec1_water_cdom_L2,NA,Sample inventory for the given analyte for each transect location,character
+ec1_sample_catalog.csv,ec1_water_fticrms_L2,NA,Sample inventory for the given analyte for each transect location,character
+ec1_sample_catalog.csv,ec1_soil_bulk_density_L2.csv,NA,Sample inventory for the given analyte for each transect location,character
+ec1_sample_catalog.csv,ec1_sediment_gwc_L2.csv,NA,Sample inventory for the given analyte for each transect location,character
+ec1_sample_catalog.csv,ec1_soil_gwc_L2.csv,NA,Sample inventory for the given analyte for each transect location,character
+ec1_sample_catalog.csv,ec1_soil_ph_L2.csv,NA,Sample inventory for the given analyte for each transect location,character
+ec1_sample_catalog.csv,ec1_water_ph_L2.csv,NA,Sample inventory for the given analyte for each transect location,character
+ec1_sample_catalog.csv,ec1_soil_cond_L2.csv,NA,Sample inventory for the given analyte for each transect location,character
+ec1_sample_catalog.csv,ec1_soil_tc_L2.csv,NA,Sample inventory for the given analyte for each transect location,character
+ec1_sample_catalog.csv,ec1_soil_tn_L2.csv,NA,Sample inventory for the given analyte for each transect location,character
+ec1_sample_catalog.csv,ec1_water_doc_L2.csv,NA,Sample inventory for the given analyte for each transect location,character
+ec1_sample_catalog.csv,ec1_water_tdn_L2.csv,NA,Sample inventory for the given analyte for each transect location,character
+ec1_sample_catalog.csv,ec1_water_tss_L2.csv,NA,Sample inventory for the given analyte for each transect location,character
+ec1_sample_catalog.csv,ec1_water_salinity_L2.csv,NA,Sample inventory for the given analyte for each transect location,character
+ec1_sample_catalog.csv,ec1_water_orp_L2.csv,NA,Sample inventory for the given analyte for each transect location,character
+ec1_sample_catalog.csv,ec1_water_alkalinity_L2.csv,NA,Sample inventory for the given analyte for each transect location,character
+ec1_sediment_gwc_L2.csv,campaign,NA,EXCHANGE campaign,character
+ec1_sediment_gwc_L2.csv,kit_id,NA,EXCHANGE EC1 Kit ID,character
+ec1_sediment_gwc_L2.csv,transect_location,NA,"Sampling location for sediment/soil along the coastal terrestrial-aquatic interface (Sediment, Wetland, Transition, or Upland)",character
+ec1_sediment_gwc_L2.csv,moisturecontent_perc_drywtbasis,percent,Gravimetric Water Content in percentage on a dry weight basis of sediment samples,numeric
+ec1_soil_bulkdensity_L2.csv,campaign,NA,EXCHANGE campaign,character
+ec1_soil_bulkdensity_L2.csv,kit_id,NA,EXCHANGE EC1 Kit ID,character
+ec1_soil_bulkdensity_L2.csv,transect_location,NA,"Sampling location for sediment/soil along the coastal terrestrial-aquatic interface (Sediment, Wetland, Transition, or Upland)",character
+ec1_soil_bulkdensity_L2.csv,dry_bulk_density_g_cm3,,bulk density of the sample from the hyprop rings in grams dry weight per volume. Grams dry weight is calculated from the field moist weight and the gravimetric water content.,numeric
+ec1_soil_cond_L2.csv,campaign,NA,EXCHANGE campaign,character
+ec1_soil_cond_L2.csv,kit_id,NA,EXCHANGE EC1 Kit ID,character
+ec1_soil_cond_L2.csv,transect_location,NA,"Sampling location for sediment/soil along the coastal terrestrial-aquatic interface (Sediment, Wetland, Transition, or Upland)",character
+ec1_soil_cond_L2.csv,specific_conductance_us_cm,,Specific conductance of soil sample in micro Siemens per centimeter,numeric
+ec1_soil_gwc_L2.csv,campaign,NA,EXCHANGE campaign,character
+ec1_soil_gwc_L2.csv,kit_id,NA,EXCHANGE EC1 Kit ID,character
+ec1_soil_gwc_L2.csv,transect_location,NA,"Sampling location for sediment/soil along the coastal terrestrial-aquatic interface (Sediment, Wetland, Transition, or Upland)",character
+ec1_soil_gwc_L2.csv,moisturecontent_perc_drywtbasis,percent,Gravimetric Water Content in percentage on a dry weight basis of soil samples,numeric
+ec1_soil_ph_L2.csv,campaign,NA,EXCHANGE campaign,character
+ec1_soil_ph_L2.csv,kit_id,NA,EXCHANGE EC1 Kit ID,character
+ec1_soil_ph_L2.csv,transect_location,NA,"Sampling location for sediment/soil along the coastal terrestrial-aquatic interface (Sediment, Wetland, Transition, or Upland)",character
+ec1_soil_ph_L2.csv,ph,unitless,Soil pH,numeric
+ec1_soil_tc_L2.csv,campaign,NA,EXCHANGE campaign,character
+ec1_soil_tc_L2.csv,kit_id,NA,EXCHANGE EC1 Kit ID,character
+ec1_soil_tc_L2.csv,transect_location,NA,"Sampling location for sediment/soil along the coastal terrestrial-aquatic interface (Sediment, Wetland, Transition, or Upland)",character
+ec1_soil_tc_L2.csv,carbon_weight_perc,percent,"Total Carbon, as percentage by weight",numeric
+ec1_soil_tn_L2.csv,campaign,NA,EXCHANGE campaign,character
+ec1_soil_tn_L2.csv,kit_id,NA,EXCHANGE EC1 Kit ID,character
+ec1_soil_tn_L2.csv,transect_location,NA,"Sampling location for sediment/soil along the coastal terrestrial-aquatic interface (Sediment, Wetland, Transition, or Upland)",character
+ec1_soil_tn_L2.csv,nitrogen_weight_perc,percent,"Total Nitrogen, as percentage by weight",numeric
+ec1_water_alkalinity_L2.csv,campaign,NA,EXCHANGE campaign,character
+ec1_water_alkalinity_L2.csv,kit_id,NA,EXCHANGE EC1 Kit ID,character
+ec1_water_alkalinity_L2.csv,transect_location,NA,"Sampling location for sediment/soil along the coastal terrestrial-aquatic interface (Sediment, Wetland, Transition, or Upland)",character
+ec1_water_alkalinity_L2.csv,alk_mgl_caco3,mg/L CaCO3,Alkalinity of water samples in milligrams per liter of CaCO3,numeric
+ec1_water_cdom_sample_list.csv,campaign,NA,EXCHANGE campaign,character
+ec1_water_cdom_sample_list.csv,kit_id,NA,EXCHANGE EC1 Kit ID,character
+ec1_water_cdom_sample_list.csv,transect_location,NA,"Sampling location for sediment/soil along the coastal terrestrial-aquatic interface (Sediment, Wetland, Transition, or Upland)",character
+ec1_water_cdom_sample_list.csv,sample_analyzed,NA,TRUE/FALSE whether sample was run,logical
+ec1_water_cdom_sample_list.csv,note,NA,Notes,character
+ec1_water_doc_L2.csv,campaign,NA,EXCHANGE campaign,character
+ec1_water_doc_L2.csv,kit_id,NA,EXCHANGE EC1 Kit ID,character
+ec1_water_doc_L2.csv,transect_location,NA,"Sampling location for sediment/soil along the coastal terrestrial-aquatic interface (Sediment, Wetland, Transition, or Upland)",character
+ec1_water_doc_L2.csv,doc_mgC_L,mgC/L,Dissolved Organic Carbon concentration in millligrams per liter,numeric
+ec1_water_fticrms_L2.csv,Mass,NA,Mass of identified peak,numeric
+ec1_water_fticrms_L2.csv,formula,NA,Predicted molecular formula of identified peak,character
+ec1_water_fticrms_L2.csv,K004,NA,Peak intensities for the given Kit ID,numeric
+ec1_water_fticrms_L2.csv,K008,NA,Peak intensities for the given Kit ID,numeric
+ec1_water_fticrms_L2.csv,K009,NA,Peak intensities for the given Kit ID,numeric
+ec1_water_fticrms_L2.csv,K010,NA,Peak intensities for the given Kit ID,numeric
+ec1_water_fticrms_L2.csv,K011,NA,Peak intensities for the given Kit ID,numeric
+ec1_water_fticrms_L2.csv,K012,NA,Peak intensities for the given Kit ID,numeric
+ec1_water_fticrms_L2.csv,K013,NA,Peak intensities for the given Kit ID,numeric
+ec1_water_fticrms_L2.csv,K014,NA,Peak intensities for the given Kit ID,numeric
+ec1_water_fticrms_L2.csv,K015,NA,Peak intensities for the given Kit ID,numeric
+ec1_water_fticrms_L2.csv,K016,NA,Peak intensities for the given Kit ID,numeric
+ec1_water_fticrms_L2.csv,K017,NA,Peak intensities for the given Kit ID,numeric
+ec1_water_fticrms_L2.csv,K018,NA,Peak intensities for the given Kit ID,numeric
+ec1_water_fticrms_L2.csv,K019,NA,Peak intensities for the given Kit ID,numeric
+ec1_water_fticrms_L2.csv,K020,NA,Peak intensities for the given Kit ID,numeric
+ec1_water_fticrms_L2.csv,K021,NA,Peak intensities for the given Kit ID,numeric
+ec1_water_fticrms_L2.csv,K022,NA,Peak intensities for the given Kit ID,numeric
+ec1_water_fticrms_L2.csv,K023,NA,Peak intensities for the given Kit ID,numeric
+ec1_water_fticrms_L2.csv,K024,NA,Peak intensities for the given Kit ID,numeric
+ec1_water_fticrms_L2.csv,K025,NA,Peak intensities for the given Kit ID,numeric
+ec1_water_fticrms_L2.csv,K026,NA,Peak intensities for the given Kit ID,numeric
+ec1_water_fticrms_L2.csv,K029,NA,Peak intensities for the given Kit ID,numeric
+ec1_water_fticrms_L2.csv,K030,NA,Peak intensities for the given Kit ID,numeric
+ec1_water_fticrms_L2.csv,K033,NA,Peak intensities for the given Kit ID,numeric
+ec1_water_fticrms_L2.csv,K034,NA,Peak intensities for the given Kit ID,numeric
+ec1_water_fticrms_L2.csv,K035,NA,Peak intensities for the given Kit ID,numeric
+ec1_water_fticrms_L2.csv,K036,NA,Peak intensities for the given Kit ID,numeric
+ec1_water_fticrms_L2.csv,K037,NA,Peak intensities for the given Kit ID,numeric
+ec1_water_fticrms_L2.csv,K038,NA,Peak intensities for the given Kit ID,numeric
+ec1_water_fticrms_L2.csv,K039,NA,Peak intensities for the given Kit ID,numeric
+ec1_water_fticrms_L2.csv,K040,NA,Peak intensities for the given Kit ID,numeric
+ec1_water_fticrms_L2.csv,K041,NA,Peak intensities for the given Kit ID,numeric
+ec1_water_fticrms_L2.csv,K042,NA,Peak intensities for the given Kit ID,numeric
+ec1_water_fticrms_L2.csv,K043,NA,Peak intensities for the given Kit ID,numeric
+ec1_water_fticrms_L2.csv,K045,NA,Peak intensities for the given Kit ID,numeric
+ec1_water_fticrms_L2.csv,K046,NA,Peak intensities for the given Kit ID,numeric
+ec1_water_fticrms_L2.csv,K047,NA,Peak intensities for the given Kit ID,numeric
+ec1_water_fticrms_L2.csv,K048,NA,Peak intensities for the given Kit ID,numeric
+ec1_water_fticrms_L2.csv,K049,NA,Peak intensities for the given Kit ID,numeric
+ec1_water_fticrms_L2.csv,K050,NA,Peak intensities for the given Kit ID,numeric
+ec1_water_fticrms_L2.csv,K051,NA,Peak intensities for the given Kit ID,numeric
+ec1_water_fticrms_L2.csv,K052,NA,Peak intensities for the given Kit ID,numeric
+ec1_water_fticrms_L2.csv,K053,NA,Peak intensities for the given Kit ID,numeric
+ec1_water_fticrms_L2.csv,K054,NA,Peak intensities for the given Kit ID,numeric
+ec1_water_fticrms_L2.csv,K055,NA,Peak intensities for the given Kit ID,numeric
+ec1_water_fticrms_L2.csv,K056,NA,Peak intensities for the given Kit ID,numeric
+ec1_water_fticrms_L2.csv,K057,NA,Peak intensities for the given Kit ID,numeric
+ec1_water_fticrms_L2.csv,K058,NA,Peak intensities for the given Kit ID,numeric
+ec1_water_fticrms_L2.csv,K059,NA,Peak intensities for the given Kit ID,numeric
+ec1_water_fticrms_L2.csv,K060,NA,Peak intensities for the given Kit ID,numeric
+ec1_water_fticrms_L2.csv,K061,NA,Peak intensities for the given Kit ID,numeric
+ec1_water_fticrms_L2.csv,K062,NA,Peak intensities for the given Kit ID,numeric
+ec1_water_fticrms_meta_L2.csv,formula,NA,Predicted molecular formula of identified peak,character
+ec1_water_fticrms_meta_L2.csv,C,NA,Atom counts for carbon in molecular formula,numeric
+ec1_water_fticrms_meta_L2.csv,H,NA,Atom counts for hydrogen in molecular formula,numeric
+ec1_water_fticrms_meta_L2.csv,O,NA,Atom counts for oxygen in molecular formula,numeric
+ec1_water_fticrms_meta_L2.csv,N,NA,Atom counts for nitrogen in molecular formula,numeric
+ec1_water_fticrms_meta_L2.csv,S,NA,Atom counts for sulfur in molecular formula,numeric
+ec1_water_fticrms_meta_L2.csv,P,NA,Atom counts for phosphorus in molecular formula,numeric
+ec1_water_fticrms_meta_L2.csv,Class,NA,Compound classification (based on Seidel 2014 https://doi.org/10.1016/j.gca.2014.05.038 and Seidel 2017 https://doi.org/10.3389/feart.2017.00031),character
+ec1_water_fticrms_meta_L2.csv,Class_detailed,NA,Detailed C\compound classification (based on Seidel 2014 https://doi.org/10.1016/j.gca.2014.05.038 and Seidel 2017 https://doi.org/10.3389/feart.2017.00031),character
+ec1_water_fticrms_meta_L2.csv,AImod,NA,Modified aromaticity index,numeric
+ec1_water_fticrms_meta_L2.csv,NOSC,NA,Nominal oxidative state of carbon,numeric
+ec1_water_fticrms_meta_L2.csv,HC,NA,Hydrogen-to-carbon ratio ,numeric
+ec1_water_fticrms_meta_L2.csv,OC,NA,Oxygen-to-carbon ratio,numeric
+ec1_water_fticrms_meta_L2.csv,DBE_AI,NA,Ratio of double-bond equivalent to aromaticity index,numeric
+ec1_water_fticrms_meta_L2.csv,DBE,NA,Double-bond equivalent,numeric
+ec1_water_fticrms_meta_L2.csv,DBE_C,NA,Ratio of double-bond equivalent to carbon,numeric
+ec1_water_fticrms_sample_list.csv,campaign,NA,EXCHANGE campaign,character
+ec1_water_fticrms_sample_list.csv,kit_id,NA,EXCHANGE EC1 Kit ID,character
+ec1_water_fticrms_sample_list.csv,transect_location,NA,"Sampling location for sediment/soil along the coastal terrestrial-aquatic interface (Sediment, Wetland, Transition, or Upland)",character
+ec1_water_fticrms_sample_list.csv,sample_analyzed,NA,TRUE/FALSE whether sample was run,logical
+ec1_water_fticrms_sample_list.csv,note,NA,Notes,character
+ec1_water_orp_L2.csv,campaign,NA,EXCHANGE campaign,character
+ec1_water_orp_L2.csv,kit_id,NA,EXCHANGE EC1 Kit ID,character
+ec1_water_orp_L2.csv,transect_location,NA,"Sampling location for sediment/soil along the coastal terrestrial-aquatic interface (Sediment, Wetland, Transition, or Upland)",character
+ec1_water_orp_L2.csv,orp_mv,mV,Oxidation-reduction potential in millivolts,numeric
+ec1_water_ph_L2.csv,campaign,NA,EXCHANGE campaign,character
+ec1_water_ph_L2.csv,kit_id,NA,EXCHANGE EC1 Kit ID,character
+ec1_water_ph_L2.csv,transect_location,NA,"Sampling location for sediment/soil along the coastal terrestrial-aquatic interface (Sediment, Wetland, Transition, or Upland)",character
+ec1_water_ph_L2.csv,ph,unitless,pH of water,numeric
+ec1_water_salinity_L2.csv,campaign,NA,EXCHANGE campaign,character
+ec1_water_salinity_L2.csv,kit_id,NA,EXCHANGE EC1 Kit ID,character
+ec1_water_salinity_L2.csv,transect_location,NA,"Sampling location for sediment/soil along the coastal terrestrial-aquatic interface (Sediment, Wetland, Transition, or Upland)",character
+ec1_water_salinity_L2.csv,sal_psu,PSU,Salinity in water in practical salinity units,numeric
+ec1_water_tdn_L2.csv,campaign,NA,EXCHANGE campaign,character
+ec1_water_tdn_L2.csv,kit_id,NA,EXCHANGE EC1 Kit ID,character
+ec1_water_tdn_L2.csv,transect_location,NA,"Sampling location for sediment/soil along the coastal terrestrial-aquatic interface (Sediment, Wetland, Transition, or Upland)",character
+ec1_water_tdn_L2.csv,tdn_mgN_L,mgN/L,Total Dissolved Nitrogen in milligrams nitrogen per liter ,numeric
+ec1_water_tss_L2.csv,campaign,NA,EXCHANGE campaign,character
+ec1_water_tss_L2.csv,kit_id,NA,EXCHANGE EC1 Kit ID,character
+ec1_water_tss_L2.csv,transect_location,NA,"Sampling location for sediment/soil along the coastal terrestrial-aquatic interface (Sediment, Wetland, Transition, or Upland)",character
+ec1_water_tss_L2.csv,tss_mg_L,mg/L,Total Suspended Solids in milligrams per liter,numeric

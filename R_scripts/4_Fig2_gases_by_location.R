@@ -1,0 +1,121 @@
+## New and improved script to make a new gas figure that includes everything
+##
+## 2022-04-22 (updated 6/22/23)
+## Peter Regier
+##
+# ############ #
+# ############ #
+
+# 1. Setup ---------------------------------------------------------------------
+
+## Load packages
+require(pacman)
+p_load(tidyverse, #keep things tidy
+       cowplot, #plot_grid
+       ggpubr, #stat_compare_means()
+       ggpattern, #geom_boxplot_pattern()
+       rstatix, #levene_test()
+       janitor,
+       ggConvexHull,
+       ggallin) #pseudolog10_trans()
+
+## Set ggplot theme
+theme_set(theme_bw())
+
+## Set color theme
+color_theme <- c("#1B264F", "#CE8147", "#FAF33E", "#3BB273")
+
+## Set comparisons for stats
+compare_transect <- list( c("Sediment", "Wetland"), c("Sediment", "Transition"), 
+                          c("Sediment", "Upland"), c("Wetland", "Transition"), 
+                          c("Wetland", "Upland"), c("Transition", "Upland"))
+
+## Make it easier to reference ID columns
+common_cols <- c("kit_id", "transect_location")
+
+
+# 2. Import and merge datasets -------------------------------------------------
+
+## Read in full dataset
+df <- read_csv("data/230623_master_data.csv") %>% 
+  select(all_of(common_cols), contains("uM_hr")) %>% 
+  mutate(transect_location = str_to_sentence(transect_location)) %>% 
+mutate(transect_location = fct_relevel(transect_location, c("Sediment", "Wetland", "Transition", "Upland")))
+
+## Also read in seawater concentrations and calculate means
+sw <- read_csv("data/230623_ghg_saltwater.csv") %>% 
+  select(contains("uM_hr")) %>% 
+  summarize(across(everything(), mean))
+
+
+# 3. Make figures and export ---------------------------------------------------
+
+make_boxplot <- function(var, y_label){
+  ggplot(df, aes(transect_location, {{var}}, fill = transect_location)) + 
+    geom_boxplot(show.legend = F, outlier.alpha = 0, width = 0.5) +
+    geom_jitter(color = "black", show.legend = F, width = 0.05) + 
+    scale_fill_manual(values = color_theme) + 
+    labs(x = "Location", y = y_label) + 
+    stat_compare_means(comparisons = compare_transect, label = "p.signif") 
+}
+
+p_do <- make_boxplot(do_uM_hr, "DO consumption (µM/hr)")
+p_co2 <- make_boxplot(co2_uM_hr, "CO2 production (µM/hr)") + 
+  geom_hline(yintercept = sw$co2_uM_hr, linetype = "dashed")
+p_ch4 <- make_boxplot(ch4_uM_hr, "CH4 production (µM/hr)") + 
+  geom_hline(yintercept = sw$ch4_uM_hr, linetype = "dashed")
+p_n2o <- make_boxplot(n2o_uM_hr, "N2O production (µM/hr)") + 
+  geom_hline(yintercept = sw$n2o_uM_hr, linetype = "dashed")
+
+# p_co2_rates <- make_boxplot(pco2_mgL_hr_wet, "CO2 production (mg/L/hr)")
+# p_ch4_rates <- make_boxplot(pch4_mgL_hr_wet, "CH4 production(mg/L/hr)")
+# p_n2o_rates <- make_boxplot(pn2o_mgL_hr_wet, "N2O production(mg/L/hr)")
+
+plot_grid(p_do, p_co2, p_ch4, p_n2o, nrow = 1, labels = c("A", "B", "C", "D"), align = "hv")
+ggsave("figures/2_Fig2_gases_by_location.png", width = 12, height = 5)
+
+
+# 4. Calculate statistics (mean and standard error) for Figure 2 ---------------
+
+## Set up a helper function to paste mean and se together
+n_sigfigs = 3
+se <- function(var){paste0(round(mean({{var}}), n_sigfigs), 
+                          "±", 
+                          round(sd({{var}}) / sqrt(length({{var}})), n_sigfigs))}
+
+## Broken out by location
+transect_stats_by_location <- df %>% 
+  select(transect_location, contains("_uM_hr")) %>% 
+  group_by(transect_location) %>% 
+  summarize(across(is.numeric, se))
+  
+## Across all locations
+transect_stats <- df %>% 
+  select(contains("_uM_hr")) %>% 
+  summarize(across(is.numeric, se)) %>% 
+  mutate(transect_location = "All locations") %>% 
+  relocate(transect_location)
+
+sw_stats <- read_csv("data/230623_ghg_saltwater.csv") %>% 
+  select(contains("uM_hr")) %>% 
+  summarize(across(is.numeric, se)) %>% 
+  mutate(do_uM_hr = NA) %>% 
+  mutate(transect_location = "Saltwater") %>% 
+  relocate(transect_location)
+
+fig2_stats <- bind_rows(transect_stats,
+                        transect_stats_by_location, 
+                        sw_stats)
+
+write_csv(fig2_stats, "data/230623_Table_SA.csv")
+
+
+df %>% 
+  select(transect_location, contains("_uM_hr")) %>% 
+  group_by(transect_location) %>% 
+  summarize(across(is.numeric, list(min = min, 
+                                    max = max)))
+
+
+27.392/1.657
+

@@ -1,0 +1,18 @@
+﻿Driver,Category,Hypothesized responses,Relevant references,,Need references
+Salinity,Saltwater exposure,"Decreased CO2, increased N2O",Ardon et al. 2018,,
+Gravimetric water content,Saturation,,,,DO
+DOC,Water chemistry,Increased CO2,Zhang et al. 2022,,"CO2, CH4"
+NO3/TDN,Water chemistry,,,,
+TC,Soil chemistry,,,,
+TN,Soil chemistry,,,,
+Sand %,Porosity,,,,
+Clay %,Porosity,,,,
+Mean annual temp,Climate,,,,
+Mean annual precip,Climate,,,,
+Vegetation,Vegetation,,,,
+DOC:TDN,Water stoichiometry,,,,
+TC:TN,Soil stoichiometry,,,,
+,,,,,
+* each driver should be predicted to influence a response,,,,,
+* each response should be linked to a reference,,,,,
+* initial vetting via correlations would help winnow variable set,,,,,

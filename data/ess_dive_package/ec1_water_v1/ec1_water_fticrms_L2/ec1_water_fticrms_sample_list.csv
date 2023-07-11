@@ -1,0 +1,56 @@
+"campaign","kit_id","transect_location","sample_analyzed","note"
+"EC1","K001","water",TRUE,"kit compromised"
+"EC1","K004","water",TRUE,NA
+"EC1","K007","water",FALSE,"kit compromised"
+"EC1","K008","water",TRUE,NA
+"EC1","K009","water",TRUE,NA
+"EC1","K010","water",TRUE,NA
+"EC1","K011","water",TRUE,NA
+"EC1","K012","water",TRUE,NA
+"EC1","K013","water",TRUE,NA
+"EC1","K014","water",TRUE,NA
+"EC1","K015","water",TRUE,NA
+"EC1","K016","water",TRUE,NA
+"EC1","K017","water",TRUE,NA
+"EC1","K018","water",TRUE,NA
+"EC1","K019","water",TRUE,NA
+"EC1","K020","water",TRUE,NA
+"EC1","K021","water",TRUE,NA
+"EC1","K022","water",TRUE,NA
+"EC1","K023","water",TRUE,NA
+"EC1","K024","water",TRUE,NA
+"EC1","K025","water",TRUE,NA
+"EC1","K026","water",TRUE,NA
+"EC1","K027","water",FALSE,"sample compromised"
+"EC1","K029","water",TRUE,NA
+"EC1","K030","water",TRUE,NA
+"EC1","K033","water",TRUE,NA
+"EC1","K034","water",TRUE,NA
+"EC1","K035","water",TRUE,NA
+"EC1","K036","water",TRUE,NA
+"EC1","K037","water",TRUE,NA
+"EC1","K038","water",TRUE,NA
+"EC1","K039","water",TRUE,NA
+"EC1","K040","water",TRUE,NA
+"EC1","K041","water",TRUE,NA
+"EC1","K042","water",TRUE,NA
+"EC1","K043","water",TRUE,NA
+"EC1","K044","water",FALSE,"sample not sent for analysis"
+"EC1","K045","water",TRUE,NA
+"EC1","K046","water",TRUE,NA
+"EC1","K047","water",TRUE,NA
+"EC1","K048","water",TRUE,NA
+"EC1","K049","water",TRUE,NA
+"EC1","K050","water",TRUE,NA
+"EC1","K051","water",TRUE,NA
+"EC1","K052","water",TRUE,NA
+"EC1","K053","water",TRUE,NA
+"EC1","K054","water",TRUE,NA
+"EC1","K055","water",TRUE,NA
+"EC1","K056","water",TRUE,NA
+"EC1","K057","water",TRUE,NA
+"EC1","K058","water",TRUE,NA
+"EC1","K059","water",TRUE,NA
+"EC1","K060","water",TRUE,NA
+"EC1","K061","water",TRUE,NA
+"EC1","K062","water",TRUE,NA

@@ -1,0 +1,126 @@
+File_Name,File_Description,Precision,Missing_Value_Codes,File_Path
+ec1_dd.csv,data dictionary of each column name present in the data package,NA,NA,/ec1_dd.csv
+ec1_data_collectionlevel.csv,data taken at ther time of individual sample collection,NA,NA,/ec1_metadata/ec1_data_collectionlevel.csv
+ec1_flmd.csv,file level metadata of the data package,NA,NA,/ec1_flmd.csv
+ec1_metadata_collectionlevel.csv,metadata taken at the time of individual sample collection,NA,NA,/ec1_metadata/ec1_metadata_collectionlevel.csv
+ec1_metadata_igsn.csv,International Generic Sample Number metadata for all kit samples; https://www.geosamples.org/about,NA,NA,/ec1_metadata/ec1_metadata_igsn.csv
+ec1_metadata_kitlevel.csv,metadata taken on the data of entire kit collection,NA,NA,/ec1_metadata/ec1_metadata_kitlevel.csv
+ec1_sediment_gwc_L2.csv,Gravimetric Water Content of sediment samples,1,NA,/ec1_sediment/ec1_sediment_gwc_L2.csv
+ec1_sample_catalog.csv,"Sample catalog for a given analyte, flags provided for any non-available sample data. If data is provided and text reads anything other than ""data available"", this constitutes warnings provided for any samples diverging from normal protocols (e.g. less than 3 replicate values used for total carbon). Values ""not applicable"" mean that the analysis type is not conducted on that sample type",NA,NA,/ec1_metadata/ec1_sample_catalog.csv
+ec1_soil_bulkdensity_L2.csv,Bulk density of soil samples,0.1,NA,/ec1_soil/ec1_soil_bulkdensity_L2.csv
+ec1_soil_cond_L2.csv,Conductivity of soil samples,0.1,NA,/ec1_soil/ec1_soil_cond_L2.csv
+ec1_soil_gwc_L2.csv,Gravimetric Water Content of soil samples,1,NA,/ec1_soil/ec1_soil_gwc_L2.csv
+ec1_soil_ph_L2.csv,pH of soil samples,0.01,NA,/ec1_soil/ec1_soil_ph_L2.csv
+ec1_soil_tc_L2.csv,"Total Carbon of soil, as percentage by weight",0.001,NA,/ec1_soil/ec1_soil_tc_L2.csv
+ec1_soil_tn_L2.csv,"Total Nitrogen of soil, as percentage by weight",0.001,NA,/ec1_soil/ec1_soil_tn_L2.csv
+ec1_water_alkalinity_L2.csv,Alkalinity of surface water samples in milligrams per liter of CaCO3,1,NA,/ec1_water/ec1_water_alkalinity_L2.csv
+K004_DilCorr_Abs.dat,Dilution Corrected Absorbance for K004,NA,NA,/ec1_water/ec1_water_cdom_L2/ec1_water_absorbance_L2/K004_DilCorr_Abs.dat
+K008_DilCorr_Abs.dat,Dilution Corrected Absorbance for K008,NA,NA,/ec1_water/ec1_water_cdom_L2/ec1_water_absorbance_L2/K008_DilCorr_Abs.dat
+K009_DilCorr_Abs.dat,Dilution Corrected Absorbance for K009,NA,NA,/ec1_water/ec1_water_cdom_L2/ec1_water_absorbance_L2/K009_DilCorr_Abs.dat
+K010_DilCorr_Abs.dat,Dilution Corrected Absorbance for K010,NA,NA,/ec1_water/ec1_water_cdom_L2/ec1_water_absorbance_L2/K010_DilCorr_Abs.dat
+K011_DilCorr_Abs.dat,Dilution Corrected Absorbance for K011,NA,NA,/ec1_water/ec1_water_cdom_L2/ec1_water_absorbance_L2/K011_DilCorr_Abs.dat
+K012_DilCorr_Abs.dat,Dilution Corrected Absorbance for K012,NA,NA,/ec1_water/ec1_water_cdom_L2/ec1_water_absorbance_L2/K012_DilCorr_Abs.dat
+K013_DilCorr_Abs.dat,Dilution Corrected Absorbance for K013,NA,NA,/ec1_water/ec1_water_cdom_L2/ec1_water_absorbance_L2/K013_DilCorr_Abs.dat
+K015_DilCorr_Abs.dat,Dilution Corrected Absorbance for K015,NA,NA,/ec1_water/ec1_water_cdom_L2/ec1_water_absorbance_L2/K015_DilCorr_Abs.dat
+K016_DilCorr_Abs.dat,Dilution Corrected Absorbance for K016,NA,NA,/ec1_water/ec1_water_cdom_L2/ec1_water_absorbance_L2/K016_DilCorr_Abs.dat
+K017_DilCorr_Abs.dat,Dilution Corrected Absorbance for K017,NA,NA,/ec1_water/ec1_water_cdom_L2/ec1_water_absorbance_L2/K017_DilCorr_Abs.dat
+K018_DilCorr_Abs.dat,Dilution Corrected Absorbance for K018,NA,NA,/ec1_water/ec1_water_cdom_L2/ec1_water_absorbance_L2/K018_DilCorr_Abs.dat
+K019_DilCorr_Abs.dat,Dilution Corrected Absorbance for K019,NA,NA,/ec1_water/ec1_water_cdom_L2/ec1_water_absorbance_L2/K019_DilCorr_Abs.dat
+K020_DilCorr_Abs.dat,Dilution Corrected Absorbance for K020,NA,NA,/ec1_water/ec1_water_cdom_L2/ec1_water_absorbance_L2/K020_DilCorr_Abs.dat
+K021_DilCorr_Abs.dat,Dilution Corrected Absorbance for K021,NA,NA,/ec1_water/ec1_water_cdom_L2/ec1_water_absorbance_L2/K021_DilCorr_Abs.dat
+K022_DilCorr_Abs.dat,Dilution Corrected Absorbance for K022,NA,NA,/ec1_water/ec1_water_cdom_L2/ec1_water_absorbance_L2/K022_DilCorr_Abs.dat
+K023_DilCorr_Abs.dat,Dilution Corrected Absorbance for K023,NA,NA,/ec1_water/ec1_water_cdom_L2/ec1_water_absorbance_L2/K023_DilCorr_Abs.dat
+K024_DilCorr_Abs.dat,Dilution Corrected Absorbance for K024,NA,NA,/ec1_water/ec1_water_cdom_L2/ec1_water_absorbance_L2/K024_DilCorr_Abs.dat
+K025_DilCorr_Abs.dat,Dilution Corrected Absorbance for K025,NA,NA,/ec1_water/ec1_water_cdom_L2/ec1_water_absorbance_L2/K025_DilCorr_Abs.dat
+K026_DilCorr_Abs.dat,Dilution Corrected Absorbance for K026,NA,NA,/ec1_water/ec1_water_cdom_L2/ec1_water_absorbance_L2/K026_DilCorr_Abs.dat
+K029_DilCorr_Abs.dat,Dilution Corrected Absorbance for K029,NA,NA,/ec1_water/ec1_water_cdom_L2/ec1_water_absorbance_L2/K029_DilCorr_Abs.dat
+K030_DilCorr_Abs.dat,Dilution Corrected Absorbance for K030,NA,NA,/ec1_water/ec1_water_cdom_L2/ec1_water_absorbance_L2/K030_DilCorr_Abs.dat
+K033_DilCorr_Abs.dat,Dilution Corrected Absorbance for K033,NA,NA,/ec1_water/ec1_water_cdom_L2/ec1_water_absorbance_L2/K033_DilCorr_Abs.dat
+K034_DilCorr_Abs.dat,Dilution Corrected Absorbance for K034,NA,NA,/ec1_water/ec1_water_cdom_L2/ec1_water_absorbance_L2/K034_DilCorr_Abs.dat
+K035_DilCorr_Abs.dat,Dilution Corrected Absorbance for K035,NA,NA,/ec1_water/ec1_water_cdom_L2/ec1_water_absorbance_L2/K035_DilCorr_Abs.dat
+K036_DilCorr_Abs.dat,Dilution Corrected Absorbance for K036,NA,NA,/ec1_water/ec1_water_cdom_L2/ec1_water_absorbance_L2/K036_DilCorr_Abs.dat
+K037_DilCorr_Abs.dat,Dilution Corrected Absorbance for K037,NA,NA,/ec1_water/ec1_water_cdom_L2/ec1_water_absorbance_L2/K037_DilCorr_Abs.dat
+K038_DilCorr_Abs.dat,Dilution Corrected Absorbance for K038,NA,NA,/ec1_water/ec1_water_cdom_L2/ec1_water_absorbance_L2/K038_DilCorr_Abs.dat
+K039_DilCorr_Abs.dat,Dilution Corrected Absorbance for K039,NA,NA,/ec1_water/ec1_water_cdom_L2/ec1_water_absorbance_L2/K039_DilCorr_Abs.dat
+K040_DilCorr_Abs.dat,Dilution Corrected Absorbance for K040,NA,NA,/ec1_water/ec1_water_cdom_L2/ec1_water_absorbance_L2/K040_DilCorr_Abs.dat
+K041_DilCorr_Abs.dat,Dilution Corrected Absorbance for K041,NA,NA,/ec1_water/ec1_water_cdom_L2/ec1_water_absorbance_L2/K041_DilCorr_Abs.dat
+K042_DilCorr_Abs.dat,Dilution Corrected Absorbance for K042,NA,NA,/ec1_water/ec1_water_cdom_L2/ec1_water_absorbance_L2/K042_DilCorr_Abs.dat
+K043_DilCorr_Abs.dat,Dilution Corrected Absorbance for K043,NA,NA,/ec1_water/ec1_water_cdom_L2/ec1_water_absorbance_L2/K043_DilCorr_Abs.dat
+K044_DilCorr_Abs.dat,Dilution Corrected Absorbance for K044,NA,NA,/ec1_water/ec1_water_cdom_L2/ec1_water_absorbance_L2/K044_DilCorr_Abs.dat
+K045_DilCorr_Abs.dat,Dilution Corrected Absorbance for K045,NA,NA,/ec1_water/ec1_water_cdom_L2/ec1_water_absorbance_L2/K045_DilCorr_Abs.dat
+K046_DilCorr_Abs.dat,Dilution Corrected Absorbance for K046,NA,NA,/ec1_water/ec1_water_cdom_L2/ec1_water_absorbance_L2/K046_DilCorr_Abs.dat
+K047_DilCorr_Abs.dat,Dilution Corrected Absorbance for K047,NA,NA,/ec1_water/ec1_water_cdom_L2/ec1_water_absorbance_L2/K047_DilCorr_Abs.dat
+K048_DilCorr_Abs.dat,Dilution Corrected Absorbance for K048,NA,NA,/ec1_water/ec1_water_cdom_L2/ec1_water_absorbance_L2/K048_DilCorr_Abs.dat
+K049_DilCorr_Abs.dat,Dilution Corrected Absorbance for K049,NA,NA,/ec1_water/ec1_water_cdom_L2/ec1_water_absorbance_L2/K049_DilCorr_Abs.dat
+K050_DilCorr_Abs.dat,Dilution Corrected Absorbance for K050,NA,NA,/ec1_water/ec1_water_cdom_L2/ec1_water_absorbance_L2/K050_DilCorr_Abs.dat
+K051_DilCorr_Abs.dat,Dilution Corrected Absorbance for K051,NA,NA,/ec1_water/ec1_water_cdom_L2/ec1_water_absorbance_L2/K051_DilCorr_Abs.dat
+K052_DilCorr_Abs.dat,Dilution Corrected Absorbance for K052,NA,NA,/ec1_water/ec1_water_cdom_L2/ec1_water_absorbance_L2/K052_DilCorr_Abs.dat
+K053_DilCorr_Abs.dat,Dilution Corrected Absorbance for K053,NA,NA,/ec1_water/ec1_water_cdom_L2/ec1_water_absorbance_L2/K053_DilCorr_Abs.dat
+K054_DilCorr_Abs.dat,Dilution Corrected Absorbance for K054,NA,NA,/ec1_water/ec1_water_cdom_L2/ec1_water_absorbance_L2/K054_DilCorr_Abs.dat
+K055_DilCorr_Abs.dat,Dilution Corrected Absorbance for K055,NA,NA,/ec1_water/ec1_water_cdom_L2/ec1_water_absorbance_L2/K055_DilCorr_Abs.dat
+K056_DilCorr_Abs.dat,Dilution Corrected Absorbance for K056,NA,NA,/ec1_water/ec1_water_cdom_L2/ec1_water_absorbance_L2/K056_DilCorr_Abs.dat
+K058_DilCorr_Abs.dat,Dilution Corrected Absorbance for K058,NA,NA,/ec1_water/ec1_water_cdom_L2/ec1_water_absorbance_L2/K058_DilCorr_Abs.dat
+K059_DilCorr_Abs.dat,Dilution Corrected Absorbance for K059,NA,NA,/ec1_water/ec1_water_cdom_L2/ec1_water_absorbance_L2/K059_DilCorr_Abs.dat
+K060_DilCorr_Abs.dat,Dilution Corrected Absorbance for K060,NA,NA,/ec1_water/ec1_water_cdom_L2/ec1_water_absorbance_L2/K060_DilCorr_Abs.dat
+K061_DilCorr_Abs.dat,Dilution Corrected Absorbance for K061,NA,NA,/ec1_water/ec1_water_cdom_L2/ec1_water_absorbance_L2/K061_DilCorr_Abs.dat
+K062_DilCorr_Abs.dat,Dilution Corrected Absorbance for K062,NA,NA,/ec1_water/ec1_water_cdom_L2/ec1_water_absorbance_L2/K062_DilCorr_Abs.dat
+ec1_water_cdom_sample_list.csv,List of available samples that have CDOM data ,NA,NA,/ec1_water/ec1_water_cdom_L2/ec1_water_cdom_sample_list.csv
+K004_DilCorr_IFE_RamNorm.dat,"Dilution-corrected, inner-filter corrected, and Raman Normalized (RSU) spectra for K004",NA,0,/ec1_water/ec1_water_cdom_L2/ec1_water_fluorescence_L2/K004_DilCorr_IFE_RamNorm.dat
+K008_DilCorr_IFE_RamNorm.dat,"Dilution-corrected, inner-filter corrected, and Raman Normalized (RSU) spectra for K008",NA,0,/ec1_water/ec1_water_cdom_L2/ec1_water_fluorescence_L2/K008_DilCorr_IFE_RamNorm.dat
+K009_DilCorr_IFE_RamNorm.dat,"Dilution-corrected, inner-filter corrected, and Raman Normalized (RSU) spectra for K009",NA,0,/ec1_water/ec1_water_cdom_L2/ec1_water_fluorescence_L2/K009_DilCorr_IFE_RamNorm.dat
+K010_DilCorr_IFE_RamNorm.dat,"Dilution-corrected, inner-filter corrected, and Raman Normalized (RSU) spectra for K010",NA,0,/ec1_water/ec1_water_cdom_L2/ec1_water_fluorescence_L2/K010_DilCorr_IFE_RamNorm.dat
+K011_DilCorr_IFE_RamNorm.dat,"Dilution-corrected, inner-filter corrected, and Raman Normalized (RSU) spectra for K011",NA,0,/ec1_water/ec1_water_cdom_L2/ec1_water_fluorescence_L2/K011_DilCorr_IFE_RamNorm.dat
+K012_DilCorr_IFE_RamNorm.dat,"Dilution-corrected, inner-filter corrected, and Raman Normalized (RSU) spectra for K012",NA,0,/ec1_water/ec1_water_cdom_L2/ec1_water_fluorescence_L2/K012_DilCorr_IFE_RamNorm.dat
+K013_DilCorr_IFE_RamNorm.dat,"Dilution-corrected, inner-filter corrected, and Raman Normalized (RSU) spectra for K013",NA,0,/ec1_water/ec1_water_cdom_L2/ec1_water_fluorescence_L2/K013_DilCorr_IFE_RamNorm.dat
+K015_DilCorr_IFE_RamNorm.dat,"Dilution-corrected, inner-filter corrected, and Raman Normalized (RSU) spectra for K015",NA,0,/ec1_water/ec1_water_cdom_L2/ec1_water_fluorescence_L2/K015_DilCorr_IFE_RamNorm.dat
+K016_DilCorr_IFE_RamNorm.dat,"Dilution-corrected, inner-filter corrected, and Raman Normalized (RSU) spectra for K016",NA,0,/ec1_water/ec1_water_cdom_L2/ec1_water_fluorescence_L2/K016_DilCorr_IFE_RamNorm.dat
+K017_DilCorr_IFE_RamNorm.dat,"Dilution-corrected, inner-filter corrected, and Raman Normalized (RSU) spectra for K017",NA,0,/ec1_water/ec1_water_cdom_L2/ec1_water_fluorescence_L2/K017_DilCorr_IFE_RamNorm.dat
+K018_DilCorr_IFE_RamNorm.dat,"Dilution-corrected, inner-filter corrected, and Raman Normalized (RSU) spectra for K018",NA,0,/ec1_water/ec1_water_cdom_L2/ec1_water_fluorescence_L2/K018_DilCorr_IFE_RamNorm.dat
+K019_DilCorr_IFE_RamNorm.dat,"Dilution-corrected, inner-filter corrected, and Raman Normalized (RSU) spectra for K019",NA,0,/ec1_water/ec1_water_cdom_L2/ec1_water_fluorescence_L2/K019_DilCorr_IFE_RamNorm.dat
+K020_DilCorr_IFE_RamNorm.dat,"Dilution-corrected, inner-filter corrected, and Raman Normalized (RSU) spectra for K020",NA,0,/ec1_water/ec1_water_cdom_L2/ec1_water_fluorescence_L2/K020_DilCorr_IFE_RamNorm.dat
+K021_DilCorr_IFE_RamNorm.dat,"Dilution-corrected, inner-filter corrected, and Raman Normalized (RSU) spectra for K021",NA,0,/ec1_water/ec1_water_cdom_L2/ec1_water_fluorescence_L2/K021_DilCorr_IFE_RamNorm.dat
+K022_DilCorr_IFE_RamNorm.dat,"Dilution-corrected, inner-filter corrected, and Raman Normalized (RSU) spectra for K022",NA,0,/ec1_water/ec1_water_cdom_L2/ec1_water_fluorescence_L2/K022_DilCorr_IFE_RamNorm.dat
+K023_DilCorr_IFE_RamNorm.dat,"Dilution-corrected, inner-filter corrected, and Raman Normalized (RSU) spectra for K023",NA,0,/ec1_water/ec1_water_cdom_L2/ec1_water_fluorescence_L2/K023_DilCorr_IFE_RamNorm.dat
+K024_DilCorr_IFE_RamNorm.dat,"Dilution-corrected, inner-filter corrected, and Raman Normalized (RSU) spectra for K024",NA,0,/ec1_water/ec1_water_cdom_L2/ec1_water_fluorescence_L2/K024_DilCorr_IFE_RamNorm.dat
+K025_DilCorr_IFE_RamNorm.dat,"Dilution-corrected, inner-filter corrected, and Raman Normalized (RSU) spectra for K025",NA,0,/ec1_water/ec1_water_cdom_L2/ec1_water_fluorescence_L2/K025_DilCorr_IFE_RamNorm.dat
+K026_DilCorr_IFE_RamNorm.dat,"Dilution-corrected, inner-filter corrected, and Raman Normalized (RSU) spectra for K026",NA,0,/ec1_water/ec1_water_cdom_L2/ec1_water_fluorescence_L2/K026_DilCorr_IFE_RamNorm.dat
+K029_DilCorr_IFE_RamNorm.dat,"Dilution-corrected, inner-filter corrected, and Raman Normalized (RSU) spectra for K029",NA,0,/ec1_water/ec1_water_cdom_L2/ec1_water_fluorescence_L2/K029_DilCorr_IFE_RamNorm.dat
+K030_DilCorr_IFE_RamNorm.dat,"Dilution-corrected, inner-filter corrected, and Raman Normalized (RSU) spectra for K030",NA,0,/ec1_water/ec1_water_cdom_L2/ec1_water_fluorescence_L2/K030_DilCorr_IFE_RamNorm.dat
+K033_DilCorr_IFE_RamNorm.dat,"Dilution-corrected, inner-filter corrected, and Raman Normalized (RSU) spectra for K033",NA,0,/ec1_water/ec1_water_cdom_L2/ec1_water_fluorescence_L2/K033_DilCorr_IFE_RamNorm.dat
+K034_DilCorr_IFE_RamNorm.dat,"Dilution-corrected, inner-filter corrected, and Raman Normalized (RSU) spectra for K034",NA,0,/ec1_water/ec1_water_cdom_L2/ec1_water_fluorescence_L2/K034_DilCorr_IFE_RamNorm.dat
+K035_DilCorr_IFE_RamNorm.dat,"Dilution-corrected, inner-filter corrected, and Raman Normalized (RSU) spectra for K035",NA,0,/ec1_water/ec1_water_cdom_L2/ec1_water_fluorescence_L2/K035_DilCorr_IFE_RamNorm.dat
+K036_DilCorr_IFE_RamNorm.dat,"Dilution-corrected, inner-filter corrected, and Raman Normalized (RSU) spectra for K036",NA,0,/ec1_water/ec1_water_cdom_L2/ec1_water_fluorescence_L2/K036_DilCorr_IFE_RamNorm.dat
+K037_DilCorr_IFE_RamNorm.dat,"Dilution-corrected, inner-filter corrected, and Raman Normalized (RSU) spectra for K037",NA,0,/ec1_water/ec1_water_cdom_L2/ec1_water_fluorescence_L2/K037_DilCorr_IFE_RamNorm.dat
+K038_DilCorr_IFE_RamNorm.dat,"Dilution-corrected, inner-filter corrected, and Raman Normalized (RSU) spectra for K038",NA,0,/ec1_water/ec1_water_cdom_L2/ec1_water_fluorescence_L2/K038_DilCorr_IFE_RamNorm.dat
+K039_DilCorr_IFE_RamNorm.dat,"Dilution-corrected, inner-filter corrected, and Raman Normalized (RSU) spectra for K039",NA,0,/ec1_water/ec1_water_cdom_L2/ec1_water_fluorescence_L2/K039_DilCorr_IFE_RamNorm.dat
+K040_DilCorr_IFE_RamNorm.dat,"Dilution-corrected, inner-filter corrected, and Raman Normalized (RSU) spectra for K040",NA,0,/ec1_water/ec1_water_cdom_L2/ec1_water_fluorescence_L2/K040_DilCorr_IFE_RamNorm.dat
+K041_DilCorr_IFE_RamNorm.dat,"Dilution-corrected, inner-filter corrected, and Raman Normalized (RSU) spectra for K041",NA,0,/ec1_water/ec1_water_cdom_L2/ec1_water_fluorescence_L2/K041_DilCorr_IFE_RamNorm.dat
+K042_DilCorr_IFE_RamNorm.dat,"Dilution-corrected, inner-filter corrected, and Raman Normalized (RSU) spectra for K042",NA,0,/ec1_water/ec1_water_cdom_L2/ec1_water_fluorescence_L2/K042_DilCorr_IFE_RamNorm.dat
+K043_DilCorr_IFE_RamNorm.dat,"Dilution-corrected, inner-filter corrected, and Raman Normalized (RSU) spectra for K043",NA,0,/ec1_water/ec1_water_cdom_L2/ec1_water_fluorescence_L2/K043_DilCorr_IFE_RamNorm.dat
+K044_DilCorr_IFE_RamNorm.dat,"Dilution-corrected, inner-filter corrected, and Raman Normalized (RSU) spectra for K044",NA,0,/ec1_water/ec1_water_cdom_L2/ec1_water_fluorescence_L2/K044_DilCorr_IFE_RamNorm.dat
+K045_DilCorr_IFE_RamNorm.dat,"Dilution-corrected, inner-filter corrected, and Raman Normalized (RSU) spectra for K045",NA,0,/ec1_water/ec1_water_cdom_L2/ec1_water_fluorescence_L2/K045_DilCorr_IFE_RamNorm.dat
+K046_DilCorr_IFE_RamNorm.dat,"Dilution-corrected, inner-filter corrected, and Raman Normalized (RSU) spectra for K046",NA,0,/ec1_water/ec1_water_cdom_L2/ec1_water_fluorescence_L2/K046_DilCorr_IFE_RamNorm.dat
+K047_DilCorr_IFE_RamNorm.dat,"Dilution-corrected, inner-filter corrected, and Raman Normalized (RSU) spectra for K047",NA,0,/ec1_water/ec1_water_cdom_L2/ec1_water_fluorescence_L2/K047_DilCorr_IFE_RamNorm.dat
+K048_DilCorr_IFE_RamNorm.dat,"Dilution-corrected, inner-filter corrected, and Raman Normalized (RSU) spectra for K048",NA,0,/ec1_water/ec1_water_cdom_L2/ec1_water_fluorescence_L2/K048_DilCorr_IFE_RamNorm.dat
+K049_DilCorr_IFE_RamNorm.dat,"Dilution-corrected, inner-filter corrected, and Raman Normalized (RSU) spectra for K049",NA,0,/ec1_water/ec1_water_cdom_L2/ec1_water_fluorescence_L2/K049_DilCorr_IFE_RamNorm.dat
+K050_DilCorr_IFE_RamNorm.dat,"Dilution-corrected, inner-filter corrected, and Raman Normalized (RSU) spectra for K050",NA,0,/ec1_water/ec1_water_cdom_L2/ec1_water_fluorescence_L2/K050_DilCorr_IFE_RamNorm.dat
+K051_DilCorr_IFE_RamNorm.dat,"Dilution-corrected, inner-filter corrected, and Raman Normalized (RSU) spectra for K051",NA,0,/ec1_water/ec1_water_cdom_L2/ec1_water_fluorescence_L2/K051_DilCorr_IFE_RamNorm.dat
+K052_DilCorr_IFE_RamNorm.dat,"Dilution-corrected, inner-filter corrected, and Raman Normalized (RSU) spectra for K052",NA,0,/ec1_water/ec1_water_cdom_L2/ec1_water_fluorescence_L2/K052_DilCorr_IFE_RamNorm.dat
+K053_DilCorr_IFE_RamNorm.dat,"Dilution-corrected, inner-filter corrected, and Raman Normalized (RSU) spectra for K053",NA,0,/ec1_water/ec1_water_cdom_L2/ec1_water_fluorescence_L2/K053_DilCorr_IFE_RamNorm.dat
+K054_DilCorr_IFE_RamNorm.dat,"Dilution-corrected, inner-filter corrected, and Raman Normalized (RSU) spectra for K054",NA,0,/ec1_water/ec1_water_cdom_L2/ec1_water_fluorescence_L2/K054_DilCorr_IFE_RamNorm.dat
+K055_DilCorr_IFE_RamNorm.dat,"Dilution-corrected, inner-filter corrected, and Raman Normalized (RSU) spectra for K055",NA,0,/ec1_water/ec1_water_cdom_L2/ec1_water_fluorescence_L2/K055_DilCorr_IFE_RamNorm.dat
+K056_DilCorr_IFE_RamNorm.dat,"Dilution-corrected, inner-filter corrected, and Raman Normalized (RSU) spectra for K056",NA,0,/ec1_water/ec1_water_cdom_L2/ec1_water_fluorescence_L2/K056_DilCorr_IFE_RamNorm.dat
+K058_DilCorr_IFE_RamNorm.dat,"Dilution-corrected, inner-filter corrected, and Raman Normalized (RSU) spectra for K058",NA,0,/ec1_water/ec1_water_cdom_L2/ec1_water_fluorescence_L2/K058_DilCorr_IFE_RamNorm.dat
+K059_DilCorr_IFE_RamNorm.dat,"Dilution-corrected, inner-filter corrected, and Raman Normalized (RSU) spectra for K059",NA,0,/ec1_water/ec1_water_cdom_L2/ec1_water_fluorescence_L2/K059_DilCorr_IFE_RamNorm.dat
+K060_DilCorr_IFE_RamNorm.dat,"Dilution-corrected, inner-filter corrected, and Raman Normalized (RSU) spectra for K060",NA,0,/ec1_water/ec1_water_cdom_L2/ec1_water_fluorescence_L2/K060_DilCorr_IFE_RamNorm.dat
+K061_DilCorr_IFE_RamNorm.dat,"Dilution-corrected, inner-filter corrected, and Raman Normalized (RSU) spectra for K061",NA,0,/ec1_water/ec1_water_cdom_L2/ec1_water_fluorescence_L2/K061_DilCorr_IFE_RamNorm.dat
+K062_DilCorr_IFE_RamNorm.dat,"Dilution-corrected, inner-filter corrected, and Raman Normalized (RSU) spectra for K062",NA,0,/ec1_water/ec1_water_cdom_L2/ec1_water_fluorescence_L2/K062_DilCorr_IFE_RamNorm.dat
+ec1_water_doc_L2.csv,Dissolved Organic Carbon concentration of surface water samples in millligrams Carbon per liter,0.01,NA,/ec1_water/ec1_water_doc_L2.csv
+ec1_water_fticrms_L2.csv,"Peak list of assigned molecular formula based on high resolution masses from FTICRMS of surface water samples. Kits are represented as columns, and rows are masses. ",NA,0,/ec1_water/ec1_water_fticrms_L2/ec1_water_fticrms_L2.csv
+ec1_water_fticrms_meta_L2.csv,"List of molecular formula information by formula, including calculated compound classes and molecular indices. File generated when processing FTICRMS data through the fticrrr package pipeline ",NA,NA,/ec1_water/ec1_water_fticrms_L2/ec1_water_fticrms_meta_L2.csv
+ec1_water_fticrms_sample_list.csv,List of available samples that have FTICRMS data,NA,NA,/ec1_water/ec1_water_fticrms_L2/ec1_water_fticrms_sample_list.csv
+ec1_water_orp_L2.csv,Oxidation-Reduction Potential of surface water samples in milliVolts,1,NA,/ec1_water/ec1_water_orp_L2.csv
+ec1_water_ph_L2.csv,pH of surface water samples,0.01,NA,/ec1_water/ec1_water_ph_L2.csv
+ec1_water_salinity_L2.csv,Salinity of surface water samples in Practical Salinity Units,0.01,NA,/ec1_water/ec1_water_salinity_L2.csv
+ec1_water_tdn_L2.csv,Total Dissolved Nitrogen concentration of surface water samples in milligrams Nitrogen per liter,0.001,NA,/ec1_water/ec1_water_tdn_L2.csv
+ec1_water_tss_L2.csv,Total Suspended Solids of surface water samples in milligrams per liter,0.01,NA,/ec1_water/ec1_water_tss_L2.csv
