@@ -19,6 +19,7 @@ p_load(tidyverse,
        vegan,
        Boruta,
        PNWColors,
+       ggallin,
        ggfortify,
        ggConvexHull)
 
@@ -83,16 +84,15 @@ df_pca <- df1 %>%
          doc_mgl, #tdn_mgl,
          tc_perc, #tn_perc,
          sand, silt, clay, 
-         veg_type,
+         #veg_type,
          gwc_perc,
          #lat,
          mat_c) %>% 
-  select(-contains("n2o")) %>% 
+  #select(-contains("n2o"))  %>% 
+  mutate(transect_location = fct_relevel(transect_location, c("Sediment", "Wetland", "Transition", "Upland"))) %>% 
   drop_na()
 
-pca1 <- prcomp(df_pca %>% select(-transect_location), scale. = TRUE, retx = TRUE) 
-
-pca1
+pca1 <- prcomp(df_pca %>% select(-transect_location), scale. = TRUE, retx = TRUE)
 
 autoplot(pca1, data = df_pca, colour = 'transect_location',
            loadings = TRUE, loadings.label = TRUE, loadings.label.size = 3, size = 3) +
@@ -102,5 +102,29 @@ autoplot(pca1, data = df_pca, colour = 'transect_location',
   labs(colour = "", fill = "") +
   theme_bw()
 ggsave("figures/5_Fig5_pca.png", width = 7, height = 6)
+
+as.data.frame(pca1$rotation[,1:2])
+
+
+## Calculate loading stats
+loadings <- as_tibble(pca1$x) %>% 
+  select(PC1, PC2) %>% 
+  bind_cols(transect_location = df_pca$transect_location) %>% 
+  mutate(transect_location = fct_relevel(transect_location, c("Sediment", "Wetland", "Transition", "Upland")))
+
+pc1_plot <- ggplot(loadings, aes(transect_location, PC1)) + 
+  geom_boxplot() + 
+  geom_hline(yintercept = 0) +
+  stat_compare_means() + 
+  labs(x = "")
+
+pc2_plot <- ggplot(loadings, aes(transect_location, PC2)) + 
+  geom_boxplot() + 
+  geom_hline(yintercept = 0) +
+  stat_compare_means() + 
+  labs(x = "")
+
+plot_grid(pc1_plot, pc2_plot, nrow = 1)
+ggsave("figures/SA_pca_score_boxplots.png", width = 8, height = 4)
 
 
