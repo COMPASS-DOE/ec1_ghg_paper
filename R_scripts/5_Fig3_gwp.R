@@ -43,7 +43,7 @@ df <- read_csv("data/230623_master_data.csv") %>%
 
 ## Read in seawater for reference
 sw <- read_csv("data/230623_ghg_saltwater.csv") %>% 
-  select(contains("_uM_hr")) %>% 
+  dplyr::select(contains("_uM_hr")) %>% 
   summarize(across(everything(), mean, na.rm = T))
 
 
@@ -60,7 +60,7 @@ df_gwp <- df %>%
   mutate(co2_gwp = co2_uM_hr, 
          ch4_gwp = ch4_uM_hr * ch4_gwp_conversion, 
          n2o_gwp = n2o_uM_hr * n2o_gwp_conversion) %>% 
-  select(kit_id, transect_location, contains("_gwp")) %>% 
+  dplyr::select(kit_id, transect_location, contains("_gwp")) %>% 
   pivot_longer(cols = contains("_gwp")) %>% 
   mutate(name = str_to_upper(str_sub(name, 1, 3)))
 
@@ -71,21 +71,33 @@ df_gwp_c <- df_gwp %>%
 
 gwp_c_means <- df_gwp_c %>% 
   group_by(transect_location, name) %>%
-  summarize(value = mean(value_c))
+  summarize(mean = mean(value_c))
 
-gwp_c_means %>% 
-  ggplot(aes(transect_location, value, fill = name)) + 
-  geom_col(alpha = 0.5, color = "black", width = 0.7) + 
-  labs(x = "", y = "100-yr Global Warming Potential (CO2 eq)", fill = "")
-ggsave("figures/3_Fig3_GWP_percent.png", width = 4, height = 4)
+## Set up a helper function to paste mean and se together
+n_sigfigs = 3
+se <- function(var){round(sd({{var}}) / sqrt(length({{var}})), n_sigfigs)}
+
+gwc_c_se <- df_gwp_c %>% 
+  group_by(transect_location, name) %>%
+  summarize(se = se(value_c))
+
+gwp_c <- inner_join(gwp_c_means, gwc_c_se, by = c("transect_location", "name"))
+
+gwp_c %>% 
+  ggplot(aes(transect_location, fill = name)) + 
+  geom_col(aes(y = mean), alpha = 0.5, color = "black", width = 0.7, position = "dodge") + 
+  geom_errorbar(aes(ymin = mean - se, ymax = mean + se), width= 0.2, position = position_dodge(0.7)) + 
+  labs(x = "", y = "100-yr Global warming potential (CO2 eq / hr)", fill = "")
+ggsave("figures/3_Fig3_GWP_percent.png", width = 5, height = 4)
 
 gwp_c_means %>% 
   summarize(value = sum(value))
 
-gwp_c_means %>% 
+gwp_c %>% 
   ungroup() %>% 
   group_by(transect_location) %>% 
-  mutate(value_p  = value / sum(value))
+  mutate(mean_p  = mean / sum(mean), 
+         se_p = se / sum(mean))
 
 
 

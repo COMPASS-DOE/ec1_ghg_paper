@@ -25,6 +25,7 @@ p_load(tidyverse,
        corrr, 
        igraph, 
        ggraph, 
+       multcompView, ## for Tukey's HSD
        psych)
 
 ## Set color theme
@@ -213,23 +214,35 @@ pca_data_scaled <- scale(pca_data %>% dplyr::select(-transect_location)) %>%
 pca0 <- prcomp(pca_data_scaled %>% dplyr::select(-contains("transect")), 
                scale. = TRUE, retx = T)
 
-loadings <- as_tibble(pca0$x) %>% 
-  dplyr::select(PC1, PC2) %>% 
-  mutate(PC1 = abs(PC1), 
-         PC2 = abs(PC2)) 
+pca_loadings <- as_tibble(pca0$x) %>% 
+  dplyr::select(PC1, PC2) 
 
 pca_w_transect <- pca_data %>% mutate(transect_location = pca_data$transect_location)
   
-
 autoplot(pca0, data = pca_w_transect, 
          colour = 'transect_location',
-         loadings = TRUE, loadings.label = TRUE, loadings.label.size = 3, size = 3) +
-  geom_convexhull(aes(group = transect_location, fill = transect_location, color = transect_location), alpha = 0.2) + 
+         loadings = TRUE, 
+         loadings.label = TRUE, 
+         #loadings.colour = "black",
+         #loadings.text.color = "black",
+         loadings.label.size = 3, size = 3) +
+  geom_convexhull(aes(group = transect_location, fill = transect_location), alpha = 0.2) + 
   scale_color_manual(values = color_theme) + 
   scale_fill_manual(values = color_theme) + 
   labs(color = "Transect \n location", fill = "Transect \n location")
 ggsave("figures/5_Fig5_pca.png", width = 6, height = 5)
 
+## Prior to plotting differences in PCAs, let's calculate Tukey's HSD so we can
+## add letters
+
+
+pca_loadings %>% 
+  mutate(transect_location = pca_data$transect_location) %>% 
+  pivot_longer(cols = c(PC1, PC2)) %>% 
+  ggplot(aes(transect_location, value)) + 
+  geom_boxplot() + 
+  facet_wrap(~name) + 
+  stat_compare_means()
 
 # 6. LDA -----------------------------------------------------------------------
 

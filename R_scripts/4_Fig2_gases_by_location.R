@@ -75,6 +75,29 @@ plot_grid(p_do, p_co2, p_ch4, p_n2o, nrow = 1, labels = c("A", "B", "C", "D"), a
 ggsave("figures/2_Fig2_gases_by_location.png", width = 12, height = 5)
 
 
+# # 3.5. Test out Tukey's HSD letters (will incorporate if it improves figure) ---
+# 
+# library(multcomp)
+# 
+# # Compute Tukey's HSD test
+# tukey_results <- TukeyHSD(aov(do_uM_hr ~ transect_location, data = df))
+# 
+# # Create the boxplot
+# p <- ggplot(df, aes(transect_location, {{var}}, fill = transect_location)) + 
+#   geom_boxplot(show.legend = FALSE, outlier.alpha = 0, width = 0.5) +
+#   geom_jitter(color = "black", show.legend = FALSE, width = 0.05) + 
+#   scale_fill_manual(values = color_theme) + 
+#   labs(x = "Location", y = y_label)
+# 
+# # Add significance letters
+# p + geom_text(data = tukey_results$`transect_location`,
+#                    aes(x = as.numeric(rownames(tukey_results$`transect_location`)),
+#                        y = max({{var}}) + 0.1, label = .$grp),
+#                    inherit.aes = FALSE, show.legend = FALSE)
+
+
+
+
 # 4. Calculate statistics (mean and standard error) for Figure 2 ---------------
 
 ## Set up a helper function to paste mean and se together
@@ -110,12 +133,17 @@ fig2_stats <- bind_rows(transect_stats,
 write_csv(fig2_stats, "data/230623_Table_SA.csv")
 
 
-df %>% 
-  select(transect_location, contains("_uM_hr")) %>% 
-  group_by(transect_location) %>% 
-  summarize(across(is.numeric, list(min = min, 
-                                    max = max)))
+my_comparisons = list(c("Saltwater", "Sediment"),
+                   c("Saltwater", "Wetland"),
+                   c("Saltwater", "Transition"),
+                   c("Saltwater", "Upland"))
 
+bind_rows(df %>% 
+            select(transect_location, contains("_uM_hr")), 
+          read_csv("data/230623_ghg_saltwater.csv") %>% 
+            select(transect_location, contains("_uM_hr"))) %>% 
+  ggplot(aes(transect_location, n2o_uM_hr)) + 
+  geom_boxplot() + 
+  stat_compare_means(comparisons = my_comparisons)
 
-27.392/1.657
 
