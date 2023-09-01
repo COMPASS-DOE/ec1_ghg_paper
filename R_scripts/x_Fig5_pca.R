@@ -60,22 +60,59 @@ df1 <- inner_join(df_raw, climate_raw, by = "kit_id") %>%
   inner_join(soil_raw, by = "kit_id") %>% 
   inner_join(lulc_raw, by = c("kit_id", "transect_location"))
 
-
-df_pca <- df1 %>% 
-  select(contains("uM_hr"), #transect_location, 
-         #sal_psu, sand
-         #gwc_perc, doc_mgl, tc_perc
-         #) %>% 
-    transect_location, 
-    lat, lon, 
-    #ph, tss_mgl, 
-    silt,
-         sal_psu, doc_mgl, 
-    tdn_mgl, 
-    gwc_perc, tc_perc, tn_perc, 
-         veg_type, 
-    sand, clay, monthly_precip, mat_c) %>% 
+df_pca_select_vars <- df1 %>% 
+  mutate(soil_cn = tc_perc / tn_perc, 
+         water_cn = doc_mgl / tdn_mgl) %>% 
+  mutate(soil_cn = ifelse(is.infinite(soil_cn), NA, soil_cn)) %>% 
+  select(transect_location, 
+         transect_num, 
+         do_uM_hr, 
+         co2_uM_hr,
+         n2o_uM_hr,
+         ch4_uM_hr,
+         sal_psu, 
+         ph, 
+         gwc_perc, 
+         doc_mgl, 
+         tdn_mgl, 
+         tc_perc, 
+         tn_perc,
+         sand, 
+         silt, 
+         clay, 
+         monthly_precip,
+         mat_c, 
+         soil_cn, 
+         water_cn) %>% 
+  mutate(transect_location = fct_relevel(transect_location, c("Sediment", "Wetland", "Transition", "Upland"))) %>% 
   drop_na()
+
+make_pca <- function()
+
+## PCA iterative variable removal
+## Starting with all variables, 
+
+pca0 <- prcomp(df_pca_select_vars %>% select(-transect_location), scale. = TRUE, retx = T)
+
+loadings <- as_tibble(pca0$x) %>% 
+  select(PC1, PC2) %>% 
+  mutate(PC1 = abs(PC1), 
+         PC2 = abs(PC2), 
+         total = PC1 + PC2) %>% 
+  arrange(total)
+
+loadings
+
+## 230720 - figure out how to iteratively remove variables in a way that maximizes
+## useful information from PCA
+
+autoplot(pca0, data = df_pca_initial, colour = 'transect_location',
+         loadings = TRUE, loadings.label = TRUE, loadings.label.size = 3, size = 3) +
+  geom_convexhull(aes(group = transect_location, fill = transect_location), alpha = 0.2) 
+
+
+
+
 
 df_pca <- df1 %>% 
   select(contains("uM_hr"), 
@@ -88,11 +125,11 @@ df_pca <- df1 %>%
          gwc_perc,
          #lat,
          mat_c) %>% 
-  #select(-contains("n2o"))  %>% 
+  select(-contains("n2o"))  %>% 
   mutate(transect_location = fct_relevel(transect_location, c("Sediment", "Wetland", "Transition", "Upland"))) %>% 
   drop_na()
 
-pca1 <- prcomp(df_pca %>% select(-transect_location), scale. = TRUE, retx = TRUE)
+pca1 <- prcomp(df_pca %>% select(-transect_location), scale. = TRUE, retx = T)
 
 autoplot(pca1, data = df_pca, colour = 'transect_location',
            loadings = TRUE, loadings.label = TRUE, loadings.label.size = 3, size = 3) +
@@ -102,8 +139,6 @@ autoplot(pca1, data = df_pca, colour = 'transect_location',
   labs(colour = "", fill = "") +
   theme_bw()
 ggsave("figures/5_Fig5_pca.png", width = 7, height = 6)
-
-as.data.frame(pca1$rotation[,1:2])
 
 
 ## Calculate loading stats
@@ -126,5 +161,28 @@ pc2_plot <- ggplot(loadings, aes(transect_location, PC2)) +
 
 plot_grid(pc1_plot, pc2_plot, nrow = 1)
 ggsave("figures/SA_pca_score_boxplots.png", width = 8, height = 4)
+
+
+
+## Potential redo of PCA
+
+df_cor <- df1 %>% 
+  mutate(soil_cn = tc_perc / tn_perc, 
+         water_cn = doc_mgl / tdn_mgl) %>% 
+  mutate(soil_cn = ifelse(is.infinite(soil_cn), NA, soil_cn)) %>% 
+  select(transect_location, 
+         transect_num, 
+         contains("_uM_hr"), 
+         sal_psu, ph, 
+         gwc_perc, 
+         doc_mgl, tdn_mgl, 
+         tc_perc, tn_perc,
+         sand, silt, clay, 
+         monthly_precip,
+         mat_c, 
+         #veg_type,
+         soil_cn, water_cn) %>% 
+  mutate(transect_location = fct_relevel(transect_location, c("Sediment", "Wetland", "Transition", "Upland"))) %>% 
+  drop_na()
 
 

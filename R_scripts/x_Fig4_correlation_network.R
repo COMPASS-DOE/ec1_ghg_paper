@@ -67,13 +67,14 @@ df_cor <- df1 %>%
   mutate(soil_cn = ifelse(is.infinite(soil_cn), NA, soil_cn)) %>% 
   select(transect_num, 
          contains("_uM_hr"), 
-         sal_psu, gwc_perc, 
+         sal_psu, ph, 
+         gwc_perc, 
          doc_mgl, tdn_mgl, 
          tc_perc, tn_perc,
-         sand, clay, 
+         sand, silt, clay, 
          monthly_precip,
          mat_c, 
-         veg_type,
+         #veg_type,
          soil_cn, water_cn) %>% 
   drop_na()
 
