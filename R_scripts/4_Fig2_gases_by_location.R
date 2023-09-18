@@ -51,13 +51,39 @@ sw <- read_csv("data/230623_ghg_saltwater.csv") %>%
 # 3. Make figures and export ---------------------------------------------------
 
 make_boxplot <- function(var, y_label){
+  library(agricolae)
+  
+  # do hsd
+  ## 1. create a new dataframe selecting the variables
+  df_new <- df %>% dplyr::select({{var}}, transect_location) %>% rename(variable = {{var}})
+  
+  ## 2. calculate Tukey's HSD
+  a = aov(variable ~ transect_location, data = df_new)
+  h = HSD.test(a, "transect_location")
+  
+  ## 2b. convert HSD results into a dataframe for the ggplot
+  h_df <- h$groups %>% 
+    as.data.frame() %>% 
+    rownames_to_column("transect_location") %>% 
+    rename(hsd = groups) %>% 
+    dplyr::select(transect_location, hsd)
+  
+  ## 3. calculate the maximum value of the variable. 
+  ## will be used to determine the y-axis position of the HSD letters
+  ## setting it dynamic as ymax + ymax/10 (will be done in the ggplot code)
+  ymax <- df %>% dplyr::select({{var}}) %>% max()
+  
+  # boxplot
   ggplot(df, aes(transect_location, {{var}}, fill = transect_location)) + 
     geom_boxplot(show.legend = F, outlier.alpha = 0, width = 0.5) +
     geom_jitter(color = "black", show.legend = F, width = 0.05) + 
     scale_fill_manual(values = color_theme) + 
-    labs(x = "Location", y = y_label) + 
-    stat_compare_means(comparisons = compare_transect, label = "p.signif") 
-}
+    labs(x = "Location", y = y_label) +
+    # add HSD letters using geom_text, and set the y-position to be dynamic
+    geom_text(data = h_df, aes(y = ymax+ymax/10, label = hsd))
+  
+  }
+
 
 p_do <- make_boxplot(do_uM_hr, "DO consumption (µM/hr)")
 p_co2 <- make_boxplot(co2_uM_hr, "CO2 production (µM/hr)") + 
