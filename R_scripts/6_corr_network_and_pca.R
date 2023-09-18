@@ -25,6 +25,7 @@ p_load(tidyverse,
        corrr, 
        igraph, 
        ggraph, 
+       ggfortify, ## autoplot for PCA
        multcompView, ## for Tukey's HSD
        psych)
 
@@ -156,30 +157,35 @@ plot_fi <- function(data){
   ## Rename columns
   colnames(fi0) = col_names
   
-  fi0 %>% 
-    arrange(raw_fi) %>% 
-    ggplot(aes(raw_fi, fct_reorder(predictor, raw_fi))) + 
-    geom_col() + 
-    labs(x = "Feature Importance", y = "Variable (Feature)")
-  
+  fi0
 }
 
-fi_plot_all <- plot_fi(df_trim %>% dplyr::select(-transect_location)) + 
+fi_plot_all <- plot_fi(df_trim %>% dplyr::select(-transect_location)) %>% 
+  arrange(raw_fi) %>% 
+  ggplot(aes(raw_fi, fct_reorder(predictor, raw_fi))) + 
+  geom_col() + 
+  labs(x = "Feature Importance", y = "Variable (Feature)") + 
   geom_vline(aes(xintercept = 0.88*2), linetype = "dashed") + 
   ggtitle("RF model with all potential variables")
 
+fi0 <- plot_fi(df_trim %>% dplyr::select(-transect_location)) 
+
 vars_to_keep <- fi0 %>% 
+  arrange(raw_fi) %>%
   filter(raw_fi > max(fi0$raw_fi) / 5)
 
-fi_plot_vars <- plot_fi(df_trim %>% 
-                          dplyr::select(transect_num, 
-                                                  all_of(vars_to_keep %>% 
-                                                           pull(predictor)))) + 
-  ggtitle("RF model with all selected variables") 
+fi_plot_vars <- plot_fi(df_trim %>%
+                          dplyr::select(transect_num,
+                                                  all_of(vars_to_keep %>%
+                                                           pull(predictor)))) %>% 
+  ggplot(aes(raw_fi, fct_reorder(predictor, raw_fi))) + 
+  geom_col() + 
+  labs(x = "Feature Importance", y = "Variable (Feature)") + 
+  geom_vline(aes(xintercept = 0.88*2), linetype = "dashed") + 
+  ggtitle("RF model with all selected variables")
   
-
-plot_grid(fi_plot_all, fi_plot_vars, nrow = 1) 
-ggsave("figures/SB_rf_feature_importance.png", width = 10, height = 5)
+plot_grid(fi_plot_all, fi_plot_vars, labels = c("A", "B"), nrow = 1)
+ggsave("figures/S1_rf_feature_importance.png", width = 10, height = 5)
 
 # 5. PCA -----------------------------------------------------------------------
 
@@ -204,7 +210,7 @@ pca_data_scaled <- scale(pca_data %>% dplyr::select(-transect_location)) %>%
          #"% Clay" = clay,
          #"Precip." = monthly_precip, 
          #"Air temp." = mat_c, 
-         #"Soil C:N" = soil_cn, 
+         "Soil C to N" = soil_cn, 
          #"Water C:N" = water_cn, 
          #"Latitude" = latitude,
          #"Longitude" = longitude,
@@ -215,7 +221,7 @@ pca0 <- prcomp(pca_data_scaled %>% dplyr::select(-contains("transect")),
                scale. = TRUE, retx = T)
 
 pca_loadings <- as_tibble(pca0$x) %>% 
-  dplyr::select(PC1, PC2) 
+  dplyr::select(PC1, PC2)
 
 pca_w_transect <- pca_data %>% mutate(transect_location = pca_data$transect_location)
   
@@ -223,48 +229,49 @@ autoplot(pca0, data = pca_w_transect,
          colour = 'transect_location',
          loadings = TRUE, 
          loadings.label = TRUE, 
-         #loadings.colour = "black",
-         #loadings.text.color = "black",
          loadings.label.size = 3, size = 3) +
-  geom_convexhull(aes(group = transect_location, fill = transect_location), alpha = 0.2) + 
+  geom_convexhull(aes(group = transect_location, color = transect_location, 
+                      fill = transect_location), alpha = 0.2) + 
   scale_color_manual(values = color_theme) + 
   scale_fill_manual(values = color_theme) + 
   labs(color = "Transect \n location", fill = "Transect \n location")
 ggsave("figures/5_Fig5_pca.png", width = 6, height = 5)
 
-## Prior to plotting differences in PCAs, let's calculate Tukey's HSD so we can
-## add letters
 
+## Set comparisons for stats
+compare_transect <- list( c("Sediment", "Wetland"), c("Sediment", "Transition"), 
+                          c("Sediment", "Upland"), c("Wetland", "Transition"), 
+                          c("Wetland", "Upland"), c("Transition", "Upland"))
 
-pca_loadings %>% 
+## To statistically compare loadings, we first need to convert our dataset to
+## scaled values, because ggfortify::autoplot() automatically scales. This is 
+## based off of https://stackoverflow.com/questions/71221048/difference-ggplot2-and-autoplot-after-prcomp
+
+pca_loadings_scaled <- pca_loadings %>% 
   mutate(transect_location = pca_data$transect_location) %>% 
+  mutate(PC1 = as.numeric(PC1) / (pca0$sdev[1] * sqrt(nrow(pca_data_scaled)))) %>% 
+  mutate(PC2 = as.numeric(PC2) / (pca0$sdev[2] * sqrt(nrow(pca_data_scaled)))) 
+
+# ggplot(pca_loadings_scaled, aes(PC1, PC2, color = transect_location)) + 
+#   geom_point(size = 3) + 
+#   geom_convexhull(aes(group = transect_location, fill = transect_location), alpha = 0.2) + 
+#   scale_color_manual(values = color_theme) + 
+#   scale_fill_manual(values = color_theme)
+
+pca_loadings_scaled %>% 
   pivot_longer(cols = c(PC1, PC2)) %>% 
   ggplot(aes(transect_location, value)) + 
   geom_boxplot() + 
   facet_wrap(~name) + 
-  stat_compare_means()
+  labs(x = "", y = "Loadings") +
+  stat_compare_means(comparisons = compare_transect)
+ggsave("figures/S2_pca_loadings.png", width = 6, height = 4)
 
-# 6. LDA -----------------------------------------------------------------------
 
-lda_model <- lda(transect_num ~ ., pca_data_scaled)
 
-lda_loadings <- lda_model$scaling %>% 
-  as.data.frame() %>%
-  rownames_to_column() %>% 
-  as_tibble()
-
-lda_data <- as.data.frame(predict(lda_model, pca_data_scaled)) %>% 
-  as_tibble() %>% 
-  dplyr::select(x.LD1, x.LD2) %>% 
-  rename("LD1" = x.LD1, 
-         "LD2" = x.LD2) %>% 
-  mutate(transect_location = pca_data$transect_location)
-
-ggplot() + 
-  geom_point(data = lda_data, aes(LD1, LD2, color = transect_location), size = 3, alpha = 0.8) + 
-  geom_convexhull(data = lda_data, aes(LD1, LD2, group = transect_location, fill = transect_location), alpha = 0.2) + 
-  geom_segment(data = lda_loadings, aes(x = LD1, y = LD2, xend = 0, yend = 0)) + 
-  geom_label(data = lda_loadings, aes(x = LD1, y = LD2, label = rowname), alpha = 0.2)
+## Some more helper graphs
+ggplot(pca_data, aes(transect_location, soil_cn)) + 
+  geom_boxplot()
 
 
 
