@@ -69,9 +69,44 @@ df_gwp_c <- df_gwp %>%
                              name == "CH4" ~ value - (sw$ch4_uM_hr * ch4_gwp_conversion), 
                              name == "N2O" ~ value - (sw$n2o_uM_hr * n2o_gwp_conversion)))
 
+
+mean_sums <- df_gwp_c %>%
+  group_by(name, transect_location) %>%
+  summarize(mean = mean(value_c)) %>% 
+  ungroup() %>% 
+  group_by(transect_location) %>% 
+  summarize(mean_gwp = sum(mean))
+
+
+fig3_a <- ggplot(df_gwp_c, aes(transect_location, value_c)) + 
+  geom_boxplot(aes(fill = name), alpha = 0.5, outlier.alpha = 0, show.legend = F) + 
+  geom_point(aes(fill = name), alpha = 0.5, 
+             position=position_jitterdodge(jitter.width = 0.02), 
+             show.legend = F) + 
+  geom_text(data = mean_sums, aes(label = round(mean_gwp, 1), y = mean_gwp * 2.2),
+            vjust = -0.5, hjust = 0.5, size = 3) +
+  scale_y_continuous(trans = pseudolog10_trans) + 
+  labs(x = "", y = "100-yr Global warming potential (CO2 eq / hr)", fill = "")
+
 gwp_c_means <- df_gwp_c %>% 
   group_by(transect_location, name) %>%
-  summarize(mean = mean(value_c))
+  summarize(mean = mean(value_c)) %>% 
+  mutate(percent = (mean / sum(mean)) * 100)
+
+fig3_b <- ggplot(gwp_c_means, aes(transect_location, percent, fill = name)) + 
+  geom_col(position = "stack", width = 0.5, alpha = 0.5) + 
+  geom_text(aes(label = paste0(round(percent, 1), "%")), 
+            position = position_stack(vjust = 0.5), 
+            size = 3, 
+            color = "black", 
+            show.legend = FALSE) + 
+  labs(x = "", y = "100-yr Global warming potential (CO2 eq / hr)", fill = "")
+
+plot_grid(fig3_a, NULL, fig3_b, rel_widths = c(1, 0.1, 0.8), nrow = 1, labels = c("A", "B"))
+ggsave("figures/3_Fig3_GWP_percent.png", width = 9, height = 4)
+
+
+
 
 ## Set up a helper function to paste mean and se together
 n_sigfigs = 3

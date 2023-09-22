@@ -17,6 +17,7 @@ p_load(tidyverse, #keep things tidy
        rstatix, #levene_test()
        janitor,
        ggConvexHull,
+       confintr,
        ggallin) #pseudolog10_trans()
 
 ## Set ggplot theme
@@ -51,37 +52,43 @@ sw <- read_csv("data/230623_ghg_saltwater.csv") %>%
 # 3. Make figures and export ---------------------------------------------------
 
 make_boxplot <- function(var, y_label){
-  library(agricolae)
+  # library(agricolae)
+  # 
+  # # do hsd
+  # ## 1. create a new dataframe selecting the variables
+  # df_new <- df %>% dplyr::select({{var}}, transect_location) %>% rename(variable = {{var}})
+  # 
+  # ## 2. calculate Tukey's HSD
+  # a = aov(variable ~ transect_location, data = df_new)
+  # h = HSD.test(a, "transect_location")
+  # 
+  # ## 2b. convert HSD results into a dataframe for the ggplot
+  # h_df <- h$groups %>% 
+  #   as.data.frame() %>% 
+  #   rownames_to_column("transect_location") %>% 
+  #   rename(hsd = groups) %>% 
+  #   dplyr::select(transect_location, hsd)
+  # 
+  # ## 3. calculate the maximum value of the variable. 
+  # ## will be used to determine the y-axis position of the HSD letters
+  # ## setting it dynamic as ymax + ymax/10 (will be done in the ggplot code)
+  # ymax <- df %>% dplyr::select({{var}}) %>% max()
+  # 
+  # # boxplot
+  # ggplot(df, aes(transect_location, {{var}}, fill = transect_location)) + 
+  #   geom_boxplot(show.legend = F, outlier.alpha = 0, width = 0.5) +
+  #   geom_jitter(color = "black", show.legend = F, width = 0.05) + 
+  #   scale_fill_manual(values = color_theme) + 
+  #   labs(x = "Location", y = y_label) +
+  #   # add HSD letters using geom_text, and set the y-position to be dynamic
+  #   geom_text(data = h_df, aes(y = ymax+ymax/10, label = hsd))
   
-  # do hsd
-  ## 1. create a new dataframe selecting the variables
-  df_new <- df %>% dplyr::select({{var}}, transect_location) %>% rename(variable = {{var}})
-  
-  ## 2. calculate Tukey's HSD
-  a = aov(variable ~ transect_location, data = df_new)
-  h = HSD.test(a, "transect_location")
-  
-  ## 2b. convert HSD results into a dataframe for the ggplot
-  h_df <- h$groups %>% 
-    as.data.frame() %>% 
-    rownames_to_column("transect_location") %>% 
-    rename(hsd = groups) %>% 
-    dplyr::select(transect_location, hsd)
-  
-  ## 3. calculate the maximum value of the variable. 
-  ## will be used to determine the y-axis position of the HSD letters
-  ## setting it dynamic as ymax + ymax/10 (will be done in the ggplot code)
-  ymax <- df %>% dplyr::select({{var}}) %>% max()
-  
-  # boxplot
   ggplot(df, aes(transect_location, {{var}}, fill = transect_location)) + 
     geom_boxplot(show.legend = F, outlier.alpha = 0, width = 0.5) +
     geom_jitter(color = "black", show.legend = F, width = 0.05) + 
     scale_fill_manual(values = color_theme) + 
-    labs(x = "Location", y = y_label) +
-    # add HSD letters using geom_text, and set the y-position to be dynamic
-    geom_text(data = h_df, aes(y = ymax+ymax/10, label = hsd))
-  
+    labs(x = "Location", y = y_label) + 
+    stat_compare_means(comparisons = compare_transect, label = "p.signif")
   }
 
 
@@ -132,22 +139,43 @@ se <- function(var){paste0(round(mean({{var}}), n_sigfigs),
                           "±", 
                           round(sd({{var}}) / sqrt(length({{var}})), n_sigfigs))}
 
+mean_range <- function(var){paste0(signif(mean({{var}}), n_sigfigs), 
+                                   " (",
+                                   signif(min({{var}}), n_sigfigs), 
+                                   " - ", 
+                                   signif(max({{var}}), n_sigfigs), 
+                                   ")")}
+
+# sd_ <- function(var){paste0(round(mean({{var}}), n_sigfigs), 
+#                             "±", 
+#                             round(sd({{var}}), n_sigfigs))}
+# 
+# df %>% filter(transect_location == "Sediment") %>% 
+#   select(do_uM_hr) %>% 
+#   summarize(mean = mean(do_uM_hr), 
+#             sd = sd(do_uM_hr),
+#             n = n()) %>% 
+#   mutate(se = sd / sqrt(n), 
+#          lower_ci = mean - qt(0.975, df = n - 1) * se, 
+#          upper_ci = mean + qt(0.975, df = n - 1) * se)
+
+
 ## Broken out by location
 transect_stats_by_location <- df %>% 
   select(transect_location, contains("_uM_hr")) %>% 
   group_by(transect_location) %>% 
-  summarize(across(is.numeric, se))
+  summarize(across(is.numeric, mean_range))
   
 ## Across all locations
 transect_stats <- df %>% 
   select(contains("_uM_hr")) %>% 
-  summarize(across(is.numeric, se)) %>% 
+  summarize(across(is.numeric, mean_range)) %>% 
   mutate(transect_location = "All locations") %>% 
   relocate(transect_location)
 
 sw_stats <- read_csv("data/230623_ghg_saltwater.csv") %>% 
   select(contains("uM_hr")) %>% 
-  summarize(across(is.numeric, se)) %>% 
+  summarize(across(is.numeric, mean_range)) %>% 
   mutate(do_uM_hr = NA) %>% 
   mutate(transect_location = "Saltwater") %>% 
   relocate(transect_location)
@@ -156,7 +184,7 @@ fig2_stats <- bind_rows(transect_stats,
                         transect_stats_by_location, 
                         sw_stats)
 
-write_csv(fig2_stats, "data/230623_Table_SA.csv")
+write_csv(fig2_stats, "data/230920_Table_S1.csv")
 
 
 my_comparisons = list(c("Saltwater", "Sediment"),
