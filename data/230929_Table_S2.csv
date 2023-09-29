@@ -1,0 +1,7 @@
+Transect location 1,Transect location 2,DO (uM/hr),CO2 (uM/hr),CH4 (uM/hr),N2O (uM/hr)
+Sediment,Wetland,0.519,0.169,0.141,0.905
+Sediment,Transition,**,*,0.136,0.231
+Sediment,Upland,**,**,**,0.118
+Wetland,Transition,0.168,0.11,*,0.225
+Wetland,Upland,**,*,***,0.11
+Transition,Upland,0.16,0.319,0.198,0.443

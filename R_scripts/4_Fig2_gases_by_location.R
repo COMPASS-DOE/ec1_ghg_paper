@@ -93,18 +93,18 @@ make_boxplot <- function(var, y_label, y_max){
     scale_y_continuous(limits = c(min(df %>% pull({{var}}), na.rm = T), 
                                   y_lim*1.1)) + 
     geom_text(data = df %>% filter({{var}} > y_max), 
-              aes(y = y_max * 0.95, label = "*"), 
-              vjust = -0.5, size = 5, show.legend = FALSE, color = "red")
+              aes(y = y_max * 0.9, label = "*"), 
+              vjust = -0.5, size = 7, show.legend = FALSE, color = "red")
     #stat_compare_means(comparisons = compare_transect, label = "p.signif")
   }
 
 
-p_do <- make_boxplot(do_uM_hr, "DO consumption (µM/hr)", 600)
+p_do <- make_boxplot(do_uM_hr, "DO consumption (µM/hr)", 590)
 p_co2 <- make_boxplot(co2_uM_hr, "CO2 production (µM/hr)", 100) + 
   geom_hline(yintercept = sw$co2_uM_hr, linetype = "dashed")
-p_ch4 <- make_boxplot(ch4_uM_hr, "CH4 production (µM/hr)", 0.3) + 
+p_ch4 <- make_boxplot(ch4_uM_hr, "CH4 production (µM/hr)", 0.31) + 
   geom_hline(yintercept = sw$ch4_uM_hr, linetype = "dashed")
-p_n2o <- make_boxplot(n2o_uM_hr, "N2O production (µM/hr)", 0.12) + 
+p_n2o <- make_boxplot(n2o_uM_hr, "N2O production (µM/hr)", 0.123) + 
   geom_hline(yintercept = sw$n2o_uM_hr, linetype = "dashed")
 
 # p_co2_rates <- make_boxplot(pco2_mgL_hr_wet, "CO2 production (mg/L/hr)")
@@ -113,28 +113,6 @@ p_n2o <- make_boxplot(n2o_uM_hr, "N2O production (µM/hr)", 0.12) +
 
 plot_grid(p_do, p_co2, p_ch4, p_n2o, nrow = 1, labels = c("A", "B", "C", "D"), align = "hv")
 ggsave("figures/2_Fig2_gases_by_location.png", width = 12, height = 5)
-
-
-# # 3.5. Test out Tukey's HSD letters (will incorporate if it improves figure) ---
-# 
-# library(multcomp)
-# 
-# # Compute Tukey's HSD test
-# tukey_results <- TukeyHSD(aov(do_uM_hr ~ transect_location, data = df))
-# 
-# # Create the boxplot
-# p <- ggplot(df, aes(transect_location, {{var}}, fill = transect_location)) + 
-#   geom_boxplot(show.legend = FALSE, outlier.alpha = 0, width = 0.5) +
-#   geom_jitter(color = "black", show.legend = FALSE, width = 0.05) + 
-#   scale_fill_manual(values = color_theme) + 
-#   labs(x = "Location", y = y_label)
-# 
-# # Add significance letters
-# p + geom_text(data = tukey_results$`transect_location`,
-#                    aes(x = as.numeric(rownames(tukey_results$`transect_location`)),
-#                        y = max({{var}}) + 0.1, label = .$grp),
-#                    inherit.aes = FALSE, show.legend = FALSE)
-
 
 
 
@@ -152,20 +130,6 @@ mean_range <- function(var){paste0(signif(mean({{var}}), n_sigfigs),
                                    " - ", 
                                    signif(max({{var}}), n_sigfigs), 
                                    ")")}
-
-# sd_ <- function(var){paste0(round(mean({{var}}), n_sigfigs), 
-#                             "±", 
-#                             round(sd({{var}}), n_sigfigs))}
-# 
-# df %>% filter(transect_location == "Sediment") %>% 
-#   select(do_uM_hr) %>% 
-#   summarize(mean = mean(do_uM_hr), 
-#             sd = sd(do_uM_hr),
-#             n = n()) %>% 
-#   mutate(se = sd / sqrt(n), 
-#          lower_ci = mean - qt(0.975, df = n - 1) * se, 
-#          upper_ci = mean + qt(0.975, df = n - 1) * se)
-
 
 ## Broken out by location
 transect_stats_by_location <- df %>% 
@@ -194,17 +158,45 @@ fig2_stats <- bind_rows(transect_stats,
 write_csv(fig2_stats, "data/230920_Table_S1.csv")
 
 
-my_comparisons = list(c("Saltwater", "Sediment"),
-                   c("Saltwater", "Wetland"),
-                   c("Saltwater", "Transition"),
-                   c("Saltwater", "Upland"))
+## Calculate Wilcoxon tests
 
-bind_rows(df %>% 
-            select(transect_location, contains("_uM_hr")), 
-          read_csv("data/230623_ghg_saltwater.csv") %>% 
-            select(transect_location, contains("_uM_hr"))) %>% 
-  ggplot(aes(transect_location, n2o_uM_hr)) + 
-  geom_boxplot() + 
-  stat_compare_means(comparisons = my_comparisons)
+calculate_wilcoxon <- function(var){
+  f = as.formula(paste0(var, "~transect_location"))
+  
+  wilcox_test(f, data = df) %>% 
+    select(contains("group"), p) %>% 
+  rename("Transect location 1" = 1, 
+         "Transect location 2" = 2, 
+         !!var := 3)
+}
 
+# Function to format numeric values based on specified conditions
+format_numeric_values <- function(x) {
+  case_when(
+    x < 0.001 ~ "***",
+    x < 0.01 ~ "**",
+    x < 0.05 ~ "*",
+    TRUE ~ as.character(x)
+  )
+}
 
+# Use rename_with to reformat column names containing "uM_hr"
+df <- df 
+
+table_s2 <- bind_cols(calculate_wilcoxon("do_uM_hr"), 
+          calculate_wilcoxon("co2_uM_hr") %>% select(-contains("location")), 
+          calculate_wilcoxon("ch4_uM_hr") %>% select(-contains("location")), 
+          calculate_wilcoxon("n2o_uM_hr") %>% select(-contains("location"))) %>% 
+  mutate(across(where(is.numeric), format_numeric_values)) %>% 
+  rename_with(
+    ~str_to_upper(.x),
+    .cols = contains("uM_hr")
+  ) %>%
+  rename_with(
+    ~str_replace_all(.x, "_UM_HR", " (uM/hr)"),
+    .cols = contains("_UM_HR")
+  )
+  
+  
+write_csv(table_s2, "data/230929_Table_S2.csv")
+  
