@@ -51,7 +51,7 @@ sw <- read_csv("data/230623_ghg_saltwater.csv") %>%
 
 # 3. Make figures and export ---------------------------------------------------
 
-make_boxplot <- function(var, y_label){
+make_boxplot <- function(var, y_label, y_max){
   # library(agricolae)
   # 
   # # do hsd
@@ -83,21 +83,28 @@ make_boxplot <- function(var, y_label){
   #   # add HSD letters using geom_text, and set the y-position to be dynamic
   #   geom_text(data = h_df, aes(y = ymax+ymax/10, label = hsd))
   
+  y_lim = max(df %>% filter({{var}} < y_max) %>% pull({{var}}), na.rm = T)
+  
   ggplot(df, aes(transect_location, {{var}}, fill = transect_location)) + 
-    geom_boxplot(show.legend = F, outlier.alpha = 0, width = 0.5) +
+    geom_boxplot(show.legend = F, outlier.alpha = 0, width = 0.5, alpha = 0.8) +
     geom_jitter(color = "black", show.legend = F, width = 0.05) + 
     scale_fill_manual(values = color_theme) + 
     labs(x = "Location", y = y_label) + 
-    stat_compare_means(comparisons = compare_transect, label = "p.signif")
+    scale_y_continuous(limits = c(min(df %>% pull({{var}}), na.rm = T), 
+                                  y_lim*1.1)) + 
+    geom_text(data = df %>% filter({{var}} > y_max), 
+              aes(y = y_max * 0.95, label = "*"), 
+              vjust = -0.5, size = 5, show.legend = FALSE, color = "red")
+    #stat_compare_means(comparisons = compare_transect, label = "p.signif")
   }
 
 
-p_do <- make_boxplot(do_uM_hr, "DO consumption (µM/hr)")
-p_co2 <- make_boxplot(co2_uM_hr, "CO2 production (µM/hr)") + 
+p_do <- make_boxplot(do_uM_hr, "DO consumption (µM/hr)", 600)
+p_co2 <- make_boxplot(co2_uM_hr, "CO2 production (µM/hr)", 100) + 
   geom_hline(yintercept = sw$co2_uM_hr, linetype = "dashed")
-p_ch4 <- make_boxplot(ch4_uM_hr, "CH4 production (µM/hr)") + 
+p_ch4 <- make_boxplot(ch4_uM_hr, "CH4 production (µM/hr)", 0.3) + 
   geom_hline(yintercept = sw$ch4_uM_hr, linetype = "dashed")
-p_n2o <- make_boxplot(n2o_uM_hr, "N2O production (µM/hr)") + 
+p_n2o <- make_boxplot(n2o_uM_hr, "N2O production (µM/hr)", 0.12) + 
   geom_hline(yintercept = sw$n2o_uM_hr, linetype = "dashed")
 
 # p_co2_rates <- make_boxplot(pco2_mgL_hr_wet, "CO2 production (mg/L/hr)")
