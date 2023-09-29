@@ -236,7 +236,7 @@ autoplot(pca0, data = pca_w_transect,
   scale_fill_manual(values = color_theme) + 
   labs(color = "Transect \n location", fill = "Transect \n location")
 ggsave("figures/5_Fig5_pca.png", width = 6, height = 5)
-
+ggsave("figures/5_Fig5_pca.pdf", width = 6, height = 5)
 
 ## Set comparisons for stats
 compare_transect <- list( c("Sediment", "Wetland"), c("Sediment", "Transition"), 
