@@ -21,7 +21,7 @@ p_load(tidyverse,
        vegan,
        Boruta,
        PNWColors, 
-       ggConvexHull,
+       ggConvexHull, #install via devtools::install_github("cmartin/ggConvexHull")
        corrr, 
        igraph, 
        ggraph, 
@@ -32,6 +32,7 @@ p_load(tidyverse,
 ## Set color theme
 color_theme <- c("#1B264F", "#CE8147", "#FAF33E", "#3BB273")
 
+theme_set(theme_bw())
 
 # 2. Load data -----------------------------------------------------------------
 
@@ -137,6 +138,7 @@ cor_upland <- make_corr_network(df_cor %>% filter(transect_num == 4), "Upland")
 plot_grid(cor_sediment, cor_wetland, cor_transition, cor_upland, 
           nrow = 2, labels = c("A", "B", "C", "D"))
 ggsave("figures/4_Fig4_correlation_networks.png", width = 12, height = 8)
+#ggsave("figures/4_Fig4_correlation_networks.pdf", width = 12, height = 8)
 
 # 4. Random Forest model -------------------------------------------------------
 
@@ -186,6 +188,7 @@ fi_plot_vars <- plot_fi(df_trim %>%
   
 plot_grid(fi_plot_all, fi_plot_vars, labels = c("A", "B"), nrow = 1)
 ggsave("figures/S1_rf_feature_importance.png", width = 10, height = 5)
+ggsave("figures/S1_rf_feature_importance.pdf", width = 10, height = 5)
 
 # 5. PCA -----------------------------------------------------------------------
 
@@ -237,6 +240,7 @@ autoplot(pca0, data = pca_w_transect,
   labs(color = "Transect \n location", fill = "Transect \n location")
 ggsave("figures/5_Fig5_pca.png", width = 6, height = 5)
 ggsave("figures/5_Fig5_pca.pdf", width = 6, height = 5)
+
 
 ## Set comparisons for stats
 compare_transect <- list( c("Sediment", "Wetland"), c("Sediment", "Transition"), 
