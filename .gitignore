@@ -52,3 +52,7 @@ ignore/
 
 .gitignore
 figures/affinity_files/archive/conceptual_model_transect_Fig4.afdesign
+R_scripts/-WE49009.Rhistory
+Untitled.R
+figures/archive/*
+
