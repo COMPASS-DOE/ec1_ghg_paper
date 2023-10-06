@@ -135,10 +135,13 @@ cor_wetland <- make_corr_network(df_cor %>% filter(transect_num == 2), "Wetland"
 cor_transition <- make_corr_network(df_cor %>% filter(transect_num == 3), "Transition")
 cor_upland <- make_corr_network(df_cor %>% filter(transect_num == 4), "Upland")
 
-plot_grid(cor_sediment, cor_wetland, cor_transition, cor_upland, 
+fig4 <- plot_grid(cor_sediment, cor_wetland, cor_transition, cor_upland, 
           nrow = 2, labels = c("A", "B", "C", "D"))
 ggsave("figures/4_Fig4_correlation_networks.png", width = 12, height = 8)
-#ggsave("figures/4_Fig4_correlation_networks.pdf", width = 12, height = 8)
+
+tiff("figures/4_Fig4_correlation_networks.tiff", units="in", width=11, height=7, res=300)
+fig4
+dev.off()
 
 # 4. Random Forest model -------------------------------------------------------
 
@@ -190,6 +193,8 @@ plot_grid(fi_plot_all, fi_plot_vars, labels = c("A", "B"), nrow = 1)
 ggsave("figures/S1_rf_feature_importance.png", width = 10, height = 5)
 ggsave("figures/S1_rf_feature_importance.pdf", width = 10, height = 5)
 
+
+
 # 5. PCA -----------------------------------------------------------------------
 
 pca_data <- df_trim %>% 
@@ -228,7 +233,7 @@ pca_loadings <- as_tibble(pca0$x) %>%
 
 pca_w_transect <- pca_data %>% mutate(transect_location = pca_data$transect_location)
   
-autoplot(pca0, data = pca_w_transect, 
+fig5 <- autoplot(pca0, data = pca_w_transect, 
          colour = 'transect_location',
          loadings = TRUE, 
          loadings.label = TRUE, 
@@ -241,6 +246,9 @@ autoplot(pca0, data = pca_w_transect,
 ggsave("figures/5_Fig5_pca.png", width = 6, height = 5)
 ggsave("figures/5_Fig5_pca.pdf", width = 6, height = 5)
 
+# tiff("figures/5_Fig5_pca.tiff", units="in", width=6, height=5, res=300)
+# fig5
+# dev.off()
 
 ## Set comparisons for stats
 compare_transect <- list( c("Sediment", "Wetland"), c("Sediment", "Transition"), 

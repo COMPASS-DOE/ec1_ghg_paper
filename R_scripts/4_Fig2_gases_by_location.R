@@ -92,11 +92,16 @@ p_n2o_s <- make_boxplot_supp(n2o_uM_hr, "N2O production (µM/hr)") +
   geom_hline(yintercept = sw$n2o_uM_hr, linetype = "dashed")
 
 
-plot_grid(p_do, p_co2, p_ch4, p_n2o, nrow = 1, labels = c("A", "B", "C", "D"), align = "hv")
-ggsave("figures/2_Fig2_gases_by_location.png", width = 13, height = 4.5)
+fig2 <- plot_grid(p_do, p_co2, p_ch4, p_n2o, nrow = 1, labels = c("A", "B", "C", "D"), align = "hv")
+ggsave(fig2, "figures/2_Fig2_gases_by_location.png", width = 13, height = 4.5)
 
-plot_grid(p_do_s, p_co2_s, p_ch4_s, p_n2o_s, nrow = 1, labels = c("A", "B", "C", "D"), align = "hv")
-ggsave("figures/S1_gases_by_location_all_data.png", width = 13, height = 4.5)
+tiff("figures/2_Fig2_gases_by_location.tiff", units="in", width=13, height=4.5, res=300)
+fig2
+dev.off()
+
+
+fig_s1 <- plot_grid(p_do_s, p_co2_s, p_ch4_s, p_n2o_s, nrow = 1, labels = c("A", "B", "C", "D"), align = "hv")
+ggsave(fig_s1, "figures/S1_gases_by_location_all_data.png", width = 13, height = 4.5)
 
 
 # 4. Calculate statistics (mean and standard error) for Figure 2 ---------------
