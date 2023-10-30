@@ -42,10 +42,17 @@ cb_states <- read_sf("/Users/regi350/OneDrive - PNNL/Documents/GitHub/COMPASS-DO
 df_sf <- df %>% 
   st_as_sf(., coords = c("long", "lat"), crs = common_crs)
 
-
+## Set bounding boxes
 bbox <- st_bbox(cb_states)
+bbox_inset <- c(xmin = -76.6, 
+                   ymin = 38.8, 
+                   xmax = -76.5, 
+                   ymax = 38.95)
 
-p0 <- ggplot() + 
+asterisk <- tibble(long = -76.57, lat = 39) %>% 
+  st_as_sf(coords = c("long", "lat"), crs = common_crs)
+
+ggplot() + 
   geom_rect(aes(xmin = bbox[[1]], 
                 ymin = bbox[[2]], 
                 xmax = bbox[[3]], 
@@ -54,12 +61,33 @@ p0 <- ggplot() +
   geom_sf(data = cb_states) + 
   geom_sf(data = df_sf, size = 5, color = "white") + 
   geom_sf(data = df_sf, size = 3.8, aes(color = Salinity), alpha = 0.8) + 
-  #geom_sf_label_repel(data = df_sf, aes(label = kit_id)) +
+  geom_sf(data = asterisk, shape = "*", size = 8, color = "red") +
   scale_color_viridis_c() + 
+  # geom_rect(aes(xmin = bbox_inset[[1]], 
+  #               ymin = bbox_inset[[2]], 
+  #               xmax = bbox_inset[[3]], 
+  #               ymax = bbox_inset[[4]]), 
+  #           color = "black", fill = NA) + 
   theme_map() + 
   theme(legend.position = c(0.8, 0.1), 
         legend.background = element_blank())
 ggsave("figures/1A_map.pdf", width = 4, height = 5)
+
+
+ggplot() +
+  geom_rect(aes(xmin = bbox_inset[[1]],
+                ymin = bbox_inset[[2]],
+                xmax = bbox_inset[[3]],
+                ymax = bbox_inset[[4]]),
+            color = NA, fill = "lightblue") +
+  geom_sf(data = st_crop(cb_states, bbox_inset)) +
+  geom_sf(data = st_crop(df_sf, bbox_inset), size = 5, color = "white") +
+  geom_sf(data = st_crop(df_sf, bbox_inset), size = 3.8,
+          aes(color = Salinity), alpha = 0.8, show.legend = F) +
+  scale_color_viridis_c(limits = c(min(df_sf$Salinity), max(df_sf$Salinity))) +
+  theme_bw()
+ggsave("figures/231030_overlapping_points_from_Fig1A.pdf", width = 3, height = 4)
+
 
 
 

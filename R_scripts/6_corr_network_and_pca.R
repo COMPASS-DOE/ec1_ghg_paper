@@ -104,9 +104,48 @@ df_cor <- df_trim %>%
 
 ## Pulling p-values using Hmisc package following 
 ## https://bioinformatics.stackexchange.com/questions/14803/extracting-p-values-using-corrr-package-in-r
-make_corr_network <- function(data, title){
+# make_corr_network <- function(data, title){
+#   tidy_r <- data %>% 
+#     correlate(method = "pearson") %>% 
+#     stretch()
+#   
+#   tidy_p <- psych::corr.test(data)$p %>% corrr::as_cordf() %>% 
+#     stretch() %>% 
+#     rename("p" = r)
+#   
+#   tidy_cors <- inner_join(tidy_r, tidy_p, by = c("x", "y"))
+#   
+#   graph_cors <- tidy_cors %>% 
+#     filter(p < 0.05) %>% 
+#     graph_from_data_frame(directed = FALSE)
+#   
+#   ggraph(graph_cors) +
+#     geom_edge_link(aes(edge_alpha = abs(r), edge_width = abs(r), color = r)) +
+#     guides(edge_alpha = "none", edge_width = "none") +
+#     scale_edge_colour_gradientn(limits = c(-1, 1), colors = c("firebrick2", "dodgerblue2")) +
+#     geom_node_point(color = "black", size = 5) +
+#     geom_node_text(aes(label = name), repel = TRUE) +
+#     theme_graph() + 
+#     labs(title = title)
+# }
+# 
+# cor_sediment <- make_corr_network(df_cor %>% filter(transect_num == 1), "Sediment")
+# cor_wetland <- make_corr_network(df_cor %>% filter(transect_num == 2), "Wetland")
+# cor_transition <- make_corr_network(df_cor %>% filter(transect_num == 3), "Transition")
+# cor_upland <- make_corr_network(df_cor %>% filter(transect_num == 4), "Upland")
+# 
+# fig4 <- plot_grid(cor_sediment, cor_wetland, cor_transition, cor_upland, 
+#           nrow = 2, labels = c("A", "B", "C", "D"))
+# ggsave("figures/4_Fig4_correlation_networks.png", width = 12, height = 8)
+# 
+# tiff("figures/4_Fig4_correlation_networks.tiff", units="in", width=11, height=7, res=300)
+# fig4
+# dev.off()
+
+## Make supplemental figure using Kendall
+make_corr_network_kendall <- function(data, title){
   tidy_r <- data %>% 
-    correlate(method = "pearson") %>% 
+    correlate(method = "kendall") %>% 
     stretch()
   
   tidy_p <- psych::corr.test(data)$p %>% corrr::as_cordf() %>% 
@@ -129,19 +168,15 @@ make_corr_network <- function(data, title){
     labs(title = title)
 }
 
+cor_sediment_k <- make_corr_network_kendall(df_cor %>% filter(transect_num == 1), "Sediment")
+cor_wetland_k <- make_corr_network_kendall(df_cor %>% filter(transect_num == 2), "Wetland")
+cor_transition_k <- make_corr_network_kendall(df_cor %>% filter(transect_num == 3), "Transition")
+cor_upland_k <- make_corr_network_kendall(df_cor %>% filter(transect_num == 4), "Upland")
 
-cor_sediment <- make_corr_network(df_cor %>% filter(transect_num == 1), "Sediment")
-cor_wetland <- make_corr_network(df_cor %>% filter(transect_num == 2), "Wetland")
-cor_transition <- make_corr_network(df_cor %>% filter(transect_num == 3), "Transition")
-cor_upland <- make_corr_network(df_cor %>% filter(transect_num == 4), "Upland")
-
-fig4 <- plot_grid(cor_sediment, cor_wetland, cor_transition, cor_upland, 
-          nrow = 2, labels = c("A", "B", "C", "D"))
-ggsave("figures/4_Fig4_correlation_networks.png", width = 12, height = 8)
-
-tiff("figures/4_Fig4_correlation_networks.tiff", units="in", width=11, height=7, res=300)
-fig4
-dev.off()
+plot_grid(cor_sediment_k, cor_wetland_k, cor_transition_k, cor_upland_k, 
+                  nrow = 2, labels = c("A", "B", "C", "D"))
+ggsave("figures/4_Fig4_correlation_networks_kendall.png", width = 12, height = 8)
+ggsave("figures/4_Fig4_correlation_networks_kendall.pdf", width = 12, height = 8)
 
 # 4. Random Forest model -------------------------------------------------------
 
