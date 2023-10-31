@@ -176,7 +176,8 @@ cor_upland_k <- make_corr_network_kendall(df_cor %>% filter(transect_num == 4), 
 plot_grid(cor_sediment_k, cor_wetland_k, cor_transition_k, cor_upland_k, 
                   nrow = 2, labels = c("A", "B", "C", "D"))
 ggsave("figures/4_Fig4_correlation_networks_kendall.png", width = 12, height = 8)
-ggsave("figures/4_Fig4_correlation_networks_kendall.pdf", width = 12, height = 8)
+ggsave("figures/4_Fig4_correlation_networks_kendall.pdf", width = 12, height = 8, device = cairo_pdf)
+
 
 # 4. Random Forest model -------------------------------------------------------
 
