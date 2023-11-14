@@ -56,42 +56,51 @@ sw <- read_csv("data/230623_ghg_saltwater.csv") %>%
 # ch4_gwp_conversion = 28
 # n2o_gwp_conversion = 265
 
+co2_molar_mass = 44.01
+ch4_molar_mass = 16.04
+n2o_molar_mass = 44.01
+
 ## Revision: we've updated our values based on S-GWP from Table 1 here: 
 ## https://link.springer.com/article/10.1007/s10021-021-00631-x/tables/1
-ch4_gwp_conversion = 16.4
+ch4_gwp_conversion = 45
 n2o_gwp_conversion = 270
 
 df_gwp <- df %>% 
-  mutate(co2_gwp = co2_uM_hr, 
-         ch4_gwp = ch4_uM_hr * ch4_gwp_conversion, 
-         n2o_gwp = n2o_uM_hr * n2o_gwp_conversion) %>% 
+  mutate(co2_gwp = co2_uM_hr * co2_molar_mass, 
+         ch4_gwp = ch4_uM_hr * ch4_molar_mass * ch4_gwp_conversion, 
+         n2o_gwp = n2o_uM_hr * n2o_molar_mass * n2o_gwp_conversion) %>% 
   dplyr::select(kit_id, transect_location, contains("_gwp")) %>% 
   pivot_longer(cols = contains("_gwp")) %>% 
   mutate(name = str_to_upper(str_sub(name, 1, 3)))
 
 df_gwp_c <- df_gwp %>% 
-  mutate(value_c = case_when(name == "CO2" ~ value - sw$co2_uM_hr, 
-                             name == "CH4" ~ value - (sw$ch4_uM_hr * ch4_gwp_conversion), 
-                             name == "N2O" ~ value - (sw$n2o_uM_hr * n2o_gwp_conversion)))
+  mutate(value_c = case_when(name == "CO2" ~ value - sw$co2_uM_hr * co2_molar_mass, 
+                             name == "CH4" ~ value - (sw$ch4_uM_hr * ch4_molar_mass* ch4_gwp_conversion), 
+                             name == "N2O" ~ value - (sw$n2o_uM_hr * n2o_molar_mass * n2o_gwp_conversion))) %>% 
+  mutate(value_c_mg = value_c / 1000)
 
 
 mean_sums <- df_gwp_c %>%
   group_by(name, transect_location) %>%
-  summarize(mean = mean(value_c)) %>% 
+  summarize(mean = mean(value_c_mg)) %>% 
   ungroup() %>% 
   group_by(transect_location) %>% 
   summarize(mean_gwp = sum(mean))
 
-fig3_a <- ggplot(df_gwp_c, aes(transect_location, value_c)) + 
+label_text_micro <- expression(paste("100-yr Global warming potential (CO"[2], " eq: ", mu, "g L"^-1, " hr"^-1, ")"))
+label_text <- expression(paste("100-yr Global warming potential (CO"[2], " eq: mg L"^-1, " hr"^-1, ")"))
+
+
+fig3_a <- ggplot(df_gwp_c, aes(transect_location, value_c_mg)) + 
   geom_boxplot(aes(fill = name), alpha = 0.5, outlier.alpha = 0, show.legend = F) + 
   geom_point(aes(fill = name), alpha = 0.5, 
              position=position_jitterdodge(jitter.width = 0.02), 
              show.legend = F) + 
   geom_text(data = mean_sums, aes(label = round(mean_gwp, 1), y = mean_gwp * 2.2),
             vjust = -0.5, hjust = 0.5, size = 3) +
-  scale_y_continuous(trans = pseudolog10_trans) + 
+  scale_y_continuous(trans = "sqrt") + 
   labs(x = "\n Location along inundation gradient", 
-       y = "100-yr Global warming potential (CO2 eq / hr)", fill = "")
+       y = label_text, fill = "")
 
 gwp_c_means <- df_gwp_c %>% 
   group_by(transect_location, name) %>%
@@ -106,9 +115,9 @@ fig3_b <- ggplot(gwp_c_means, aes(transect_location, percent, fill = name)) +
             color = "black", 
             show.legend = FALSE) + 
   labs(x = "\n Location along inundation gradient", 
-       y = "100-yr Global warming potential (CO2 eq / hr)", fill = "")
+       y = "% of total GWP", fill = "")
 
-fig3 <- plot_grid(fig3_a, NULL, fig3_b, rel_widths = c(1, 0.1, 0.8), nrow = 1, labels = c("A", "B"))
+fig3 <- plot_grid(NULL, fig3_a, NULL, fig3_b, rel_widths = c(0.05, 1, 0.05, 0.8), nrow = 1, labels = c("A", "", "B"))
 ggsave("figures/3_Fig3_GWP_percent_updated.png", width = 10, height = 4.5)
 ggsave("figures/3_Fig3_GWP_percent_updated.pdf", width = 10, height = 4.5)
 # 
